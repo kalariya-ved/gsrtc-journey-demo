@@ -128,7 +128,7 @@ export default function SearchResults() {
             </div>
             <div className="service-notice"><BusFront /><span>Services include current schedules and seat availability. Fares shown are per passenger.</span></div>
             <div className="service-list">
-              {filteredServices.map((service) => <ServiceCard key={service.id} service={service} source={source} destination={destination} isOpen={openService === service.id} onToggle={() => setOpenService(openService === service.id ? null : service.id)} />)}
+              {filteredServices.map((service) => <ServiceCard key={service.id} service={service} source={source} destination={destination} isOpen={openService === service.id} onToggle={() => setOpenService(openService === service.id ? null : service.id)} onSelect={() => navigate(`/bus-details?service=${encodeURIComponent(service.id)}&source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}&date=${encodeURIComponent(date)}&passengers=${encodeURIComponent(passengers)}`)} />)}
               {filteredServices.length === 0 && <div className="empty-results"><BusFront /><h2>No services match these filters</h2><p>Clear one or more filters to see available journeys for this date.</p><button onClick={() => { setAcOnly(false); setSelectedBands([]); }}>Reset filters</button></div>}
             </div>
           </div>
@@ -138,14 +138,14 @@ export default function SearchResults() {
   );
 }
 
-function ServiceCard({ service, source, destination, isOpen, onToggle }: { service: Service; source: string; destination: string; isOpen: boolean; onToggle: () => void }) {
+function ServiceCard({ service, source, destination, isOpen, onToggle, onSelect }: { service: Service; source: string; destination: string; isOpen: boolean; onToggle: () => void; onSelect: () => void }) {
   return (
     <article className="service-card">
       <div className="service-card-main">
         <div className="operator-info"><div className="service-icon"><BusFront /></div><div><h2>{service.operator}</h2><p>{service.service} <span>•</span> {service.type}</p></div></div>
         <div className="timing-block"><div><strong>{service.departure}</strong><span>{source}</span></div><div className="duration-line"><i /><span>{service.duration}</span><i /></div><div><strong>{service.arrival}</strong><span>{destination}</span></div></div>
         <div className="availability-block"><span>{service.seats} seats left</span><strong>₹{service.fare}</strong><small>per passenger</small></div>
-        <button onClick={() => toast.success(`Seat selection for ${service.operator} is ready in the full booking flow.`)} className="select-seat-button">Select seats</button>
+        <button onClick={onSelect} className="select-seat-button">Select seats</button>
       </div>
       <div className="service-card-footer"><div className="amenities">{service.tags.map((tag) => <span key={tag}>{amenityIcon(tag)}{tag}</span>)}</div><button onClick={onToggle} className="boarding-button">Boarding & dropping <ChevronDown className={isOpen ? "chevron-up" : ""} /></button></div>
       {isOpen && <div className="boarding-details"><div><span>Boarding point</span><strong><MapPin />{service.boarding}</strong></div><div><span>Dropping point</span><strong><MapPin />{service.dropping}</strong></div><div><span>Service ID</span><strong>{service.id}</strong></div></div>}

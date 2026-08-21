@@ -93,4 +93,11 @@
 - [x] Reproduce the source and destination station-selection failure.
 - [x] Correct the autocomplete state, keyboard behavior, and search-query handoff.
 - [x] Verify station selection on desktop and mobile.
-- [ ] Save the station-selection fix as a delivery checkpoint.
+- [x] Save the station-selection fix as a delivery checkpoint.
+
+# Autocomplete Dropdown Layout Fix
+
+- [x] Identify the overlapping station-suggestion layout behavior.
+- [x] Correct the source and destination suggestion containers and option sizing.
+- [x] Verify contained autocomplete layouts on desktop and mobile.
+- [ ] Save the layout fix as a delivery checkpoint.

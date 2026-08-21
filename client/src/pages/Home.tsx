@@ -1,114 +1,31 @@
 /**
- * Civic Transit Portal design: compact public-service hierarchy, RoutePulse blue booking rail,
- * red task accents, operational density, rectangular fields, and restrained responsive motion.
+ * Booking Home redesign: a focused RoutePulse journey planner using a dark route hero, high-contrast
+ * search panel, compact public-service navigation, and restrained blue/red transit authority cues.
  */
 import { useState } from "react";
 import { useLocation } from "wouter";
-import {
-  Apple,
-  ArrowLeft,
-  ArrowRight,
-  ArrowUp,
-  ArrowUpDown,
-  BusFront,
-  CalendarDays,
-  Check,
-  ChevronDown,
-  ChevronRight,
-  CircleHelp,
-  Globe2,
-  Landmark,
-  Mail,
-  MapPin,
-  Menu,
-  Phone,
-  Search,
-  ShieldCheck,
-  Smartphone,
-  TicketCheck,
-  UsersRound,
-  WalletCards,
-  X,
-} from "lucide-react";
+import { ArrowRight, ArrowUp, ArrowUpDown, BusFront, CalendarDays, CheckCircle2, Clock3, Headphones, MapPin, Menu, Navigation, Search, ShieldCheck, TicketCheck, UsersRound, X, Zap } from "lucide-react";
 import { toast } from "sonner";
 
 const routePulseLogo = "/manus-storage/routepulse-logo_c9f17078.png";
-const heroImage = "/manus-storage/routepulse-hero_e9db7cb9.jpg";
-const feedbackImage = "/manus-storage/routepulse-feedback-panel_44602ea4.jpg";
-const unityImage = "/manus-storage/routepulse-destination-unity_3f1d69e1.jpg";
-const templeImage = "/manus-storage/routepulse-destination-temple_b99f6463.jpg";
 
-const bookingTabs = [
-  "Advance Booking",
-  "Educator Travel",
-  "Official Travel",
-  "Accessible Travel",
-  "Landmark Services",
-  "Electric Coach",
+const travelModes = ["One way", "Round trip", "Group travel"];
+const corridorRoutes = [
+  { from: "Ahmedabad", to: "Vadodara", duration: "5h 50m", fare: "From ₹338" },
+  { from: "Ahmedabad", to: "Rajkot", duration: "4h 40m", fare: "From ₹295" },
+  { from: "Surat", to: "Ahmedabad", duration: "6h 15m", fare: "From ₹410" },
 ];
-
-const footerGroups = [
-  [
-    "About RoutePulse",
-    "Leadership",
-    "Special services",
-    "Achievements",
-    "Tenders",
-    "FAQs",
-    "Sitemap",
-    "Recruitment",
-    "Contact us",
-    "Awards",
-    "Partner directory",
-  ],
-  [
-    "Divisions",
-    "Corporate office",
-    "Performance",
-    "Bus enquiry",
-    "Pilgrim travel services",
-    "Downloads",
-    "Privacy policy",
-    "India code",
-    "Press releases",
-    "Passenger rights",
-    "Service regulation",
-  ],
-];
-
-const stats = [
-  { label: "Android App Downloaded", value: "6,392,501", icon: Smartphone, color: "stat-blue" },
-  { label: "iOS App Downloaded", value: "1,309,035", icon: Apple, color: "stat-berry" },
-  { label: "Wallet Users", value: "1,286,369", icon: WalletCards, color: "stat-amber" },
-  { label: "Visitors Count", value: "31,37,16,980", icon: UsersRound, color: "stat-green" },
-];
-
-function ActionToast({ label }: { label: string }) {
-  return (
-    <button
-      onClick={() => toast.info(`${label} is available in the full booking service.`)}
-      className="transition-opacity hover:opacity-85"
-    >
-      {label}
-    </button>
-  );
-}
 
 export default function Home() {
   const [, navigate] = useLocation();
-  const [isInfoOpen, setIsInfoOpen] = useState(true);
-  const [activeTab, setActiveTab] = useState(bookingTabs[0]);
+  const [activeMode, setActiveMode] = useState(travelModes[0]);
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [source, setSource] = useState("");
   const [destination, setDestination] = useState("");
   const [travelDate, setTravelDate] = useState("");
   const [passengers, setPassengers] = useState("1");
   const [singleLady, setSingleLady] = useState(false);
-
-  const swapLocations = () => {
-    setSource(destination);
-    setDestination(source);
-  };
 
   const searchBuses = () => {
     if (!source || !destination || !travelDate) {
@@ -118,188 +35,44 @@ export default function Home() {
     navigate(`/results?source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}&date=${encodeURIComponent(travelDate)}&passengers=${encodeURIComponent(passengers)}&singleLady=${singleLady ? "1" : "0"}`);
   };
 
-  return (
-    <div className="min-h-screen overflow-hidden bg-[#f7fafc] text-slate-800">
-      <a href="#booking" className="skip-link">Skip to booking</a>
+  const swapLocations = () => {
+    setSource(destination);
+    setDestination(source);
+  };
 
-      <header className="relative z-20 bg-white">
-        <div className="utility-strip">
-          <div className="civic-container utility-row">
-            <div className="utility-contact">
-              <a href="mailto:support@routepulse.example"><Mail aria-hidden="true" />support@routepulse.example</a>
-              <span className="utility-divider">/</span>
-              <a href="mailto:refunds@routepulse.example">refunds@routepulse.example</a>
-              <a href="tel:18002336666" className="phone-link"><Phone aria-hidden="true" />1800 233 666666</a>
-            </div>
-            <nav className="utility-links" aria-label="Utility navigation">
-              <a href="#booking">Skip to main content</a>
-              <ActionToast label="Traveller Login" />
-              <ActionToast label="Pass Login" />
-              <ActionToast label="Alert" />
-            </nav>
-          </div>
-        </div>
+  const chooseCorridor = (from: string, to: string) => {
+    setSource(from);
+    setDestination(to);
+    document.getElementById("booking")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
-        <div className="access-strip">
-          <div className="civic-container access-row">
-            <button onClick={() => toast.info("Accessibility preferences are available in the complete service.")} className="accessibility-link"><CircleHelp aria-hidden="true" />Accessibility Options</button>
-            <button onClick={() => toast.info("Language selection is ready for multilingual routes.")} className="language-link"><Globe2 aria-hidden="true" />English<ChevronDown aria-hidden="true" /></button>
-          </div>
-        </div>
+  return <div className="booking-home-v2 min-h-screen">
+    <a href="#booking" className="skip-link">Skip to ticket search</a>
+    <header className="home-v2-header">
+      <div className="home-v2-utility"><div className="civic-container"><span>RoutePulse Transit Service Desk</span><span>Passenger support: <a href="tel:18002336666">1800 233 666666</a></span><button onClick={() => setIsInfoOpen(true)}>Booking notice</button></div></div>
+      <div className="civic-container home-v2-masthead"><button className="home-v2-brand" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}><img src={routePulseLogo} alt="" /><span><strong>RoutePulse Transit <i>Service Network</i></strong><small>Public Intercity Services</small></span></button><nav className="home-v2-nav" aria-label="Primary navigation"><button onClick={() => navigate("/tracking")}><Navigation />Track service</button><button onClick={() => toast.info("Pass services are available in the connected booking system.")}>Bus pass</button><button onClick={() => toast.info("Agent access is available in the connected booking system.")}>Agent desk</button><button onClick={() => toast.info("Traveller accounts are available in the connected booking system.")}>My journeys</button></nav><button className="home-v2-menu" aria-label="Open navigation menu" onClick={() => setIsMobileMenuOpen((current) => !current)}>{isMobileMenuOpen ? <X /> : <Menu />}</button></div>
+      {isMobileMenuOpen && <div className="home-v2-mobile-nav"><button onClick={() => navigate("/tracking")}>Track service <ArrowRight /></button><button onClick={() => toast.info("Pass services are available in the connected booking system.")}>Bus pass <ArrowRight /></button><button onClick={() => toast.info("Agent access is available in the connected booking system.")}>Agent desk <ArrowRight /></button><button onClick={() => toast.info("Traveller accounts are available in the connected booking system.")}>My journeys <ArrowRight /></button></div>}
+    </header>
 
-        <div className="civic-container masthead">
-          <a className="brand-lockup" href="#top" aria-label="RoutePulse Transit home">
-            <img src={routePulseLogo} alt="" className="brand-mark" />
-            <span className="brand-copy">
-              <strong>RoutePulse Transit</strong>
-              <span>Public Intercity Services</span>
-              <em>Every mile, connected.</em>
-            </span>
-          </a>
+    <main>
+      <section className="home-v2-hero">
+        <div className="civic-container home-v2-hero-grid"><div className="home-v2-hero-copy"><span className="home-v2-eyebrow"><img src={routePulseLogo} alt="" />RoutePulse intercity network</span><h1>Scheduled services.<br /><em>Seat selection.</em><br />Journey ready.</h1><p>Search intercity departures, compare schedules, and move directly to service and seat details.</p><div className="home-v2-hero-proof"><span><CheckCircle2 />Schedule-led search</span><span><ShieldCheck />Passenger information</span></div></div><div className="home-v2-hero-visual" aria-label="RoutePulse service network diagram"><div className="home-v2-network-head"><img src={routePulseLogo} alt="" /><span><b>RoutePulse service grid</b><small>Intercity route planning</small></span><em>Live demo</em></div><div className="home-v2-network-body"><div className="network-station station-ahm"><b>AHM</b><small>Ahmedabad</small></div><div className="network-station station-anand"><b>ANR</b><small>Anand</small></div><div className="network-station station-vad"><b>VAD</b><small>Vadodara</small></div><i className="network-rail network-rail-main" /><i className="network-rail network-rail-branch" /><div className="network-coach"><BusFront /><span>RP 420</span></div></div><div className="home-v2-network-foot"><span><b>03</b> priority corridors</span><span><b>24h</b> service updates</span><span><b>01</b> journey desk</span></div><div className="home-v2-hero-stamp"><img src={routePulseLogo} alt="" /><span><b>8,000+</b><small>network coaches</small></span></div></div></div>
+      </section>
 
-          <nav className="desktop-nav" aria-label="Primary navigation">
-            <ActionToast label="Online Users" />
-            <ActionToast label="Agent Login" />
-            <ActionToast label="Pilgrim Travel" />
-            <ActionToast label="Bus Pass" />
-            <ActionToast label="Unity Booking" />
-          </nav>
+      <section id="booking" className="civic-container home-v2-search-wrap">
+        <div className="home-v2-search-card"><div className="home-v2-search-head"><div className="home-v2-mode-tabs">{travelModes.map((mode) => <button key={mode} onClick={() => setActiveMode(mode)} className={activeMode === mode ? "is-active" : ""}>{mode}</button>)}</div><span><TicketCheck />Book your journey</span></div><form onSubmit={(event) => { event.preventDefault(); searchBuses(); }}><div className="home-v2-fields"><label><span>Leaving from</span><div><MapPin /><input value={source} onChange={(event) => setSource(event.target.value)} placeholder="City or bus station" /></div></label><button type="button" onClick={swapLocations} className="home-v2-swap" aria-label="Swap source and destination"><ArrowUpDown /></button><label><span>Going to</span><div><MapPin /><input value={destination} onChange={(event) => setDestination(event.target.value)} placeholder="City or bus station" /></div></label><label><span>Travel date</span><div><CalendarDays /><input value={travelDate} onChange={(event) => setTravelDate(event.target.value)} type="date" /></div></label><label><span>Passengers</span><div><UsersRound /><select value={passengers} onChange={(event) => setPassengers(event.target.value)}>{[1, 2, 3, 4, 5, 6].map((count) => <option key={count} value={count}>{count} passenger{count > 1 ? "s" : ""}</option>)}</select></div></label><button className="home-v2-search-button" type="submit"><Search />Search services</button></div><div className="home-v2-form-foot"><label><input checked={singleLady} onChange={(event) => setSingleLady(event.target.checked)} type="checkbox" /><span>Single lady traveller</span></label><button type="button" onClick={() => setIsInfoOpen(true)}><ShieldCheck />Read booking guidance</button></div></form></div>
+      </section>
 
-          <button className="mobile-menu-button" aria-label="Open navigation menu" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-        {isMobileMenuOpen && (
-          <div className="mobile-nav-panel">
-            {["Online Users", "Agent Login", "Pilgrim Travel", "Bus Pass", "Unity Booking"].map((item) => (
-              <button key={item} onClick={() => { setIsMobileMenuOpen(false); toast.info(`${item} is available in the full booking service.`); }}>{item}<ChevronRight /></button>
-            ))}
-          </div>
-        )}
-        <div className="notice-strip"><div className="civic-container"><strong>NOTE:</strong> Complete each ticket booking in one session. Keep your name, mobile number, and email address correct for travel updates.</div></div>
-      </header>
+      <section className="civic-container home-v2-assurances"><article><Clock3 /><span><b>Clear departure choices</b><small>Compare scheduled journeys in one view.</small></span></article><article><TicketCheck /><span><b>Seat selection</b><small>Review available seats before your next step.</small></span></article><article><Headphones /><span><b>Passenger help desk</b><small>Guidance before and during travel.</small></span></article></section>
 
-      <main id="top">
-        <section className="hero-section" aria-label="RoutePulse booking milestone">
-          <img src={heroImage} alt="Stylized bus service progress illustration" className="hero-image" />
-          <div className="hero-overlay civic-container">
-            <div className="hero-copy">
-              <span className="hero-kicker">RoutePulse service update</span>
-              <h1>Reliable seats.<br />Connected journeys.</h1>
-              <p>Plan intercity travel with route guidance, accessible options, and real-time service information.</p>
-            </div>
-          </div>
-        </section>
+      <section className="civic-container home-v2-corridors"><div className="home-v2-section-intro"><div><span>Plan with confidence</span><h2>Popular corridors</h2></div><button onClick={() => toast.info("All route corridors are shown after you search.")}>Explore all routes <ArrowRight /></button></div><div className="home-v2-corridor-grid">{corridorRoutes.map((route) => <button key={`${route.from}-${route.to}`} onClick={() => chooseCorridor(route.from, route.to)} className="home-v2-corridor"><div><span>{route.from}</span><i /><span>{route.to}</span></div><p><Clock3 />{route.duration}<b>{route.fare}</b></p><small>Use this route <ArrowRight /></small></button>)}</div></section>
 
-        <section id="booking" className="booking-rail" aria-label="Search bus services">
-          <div className="civic-container">
-            <div className="booking-tabs" role="tablist" aria-label="Travel service categories">
-              {bookingTabs.map((tab) => (
-                <button key={tab} role="tab" aria-selected={activeTab === tab} onClick={() => setActiveTab(tab)} className={activeTab === tab ? "booking-tab active" : "booking-tab"}>{tab}</button>
-              ))}
-            </div>
-            <form className="booking-form" onSubmit={(event) => { event.preventDefault(); searchBuses(); }}>
-              <label className="booking-field"><span className="sr-only">Source</span><MapPin aria-hidden="true" /><input value={source} onChange={(event) => setSource(event.target.value)} placeholder="Source" /></label>
-              <button type="button" className="swap-button" onClick={swapLocations} aria-label="Swap source and destination"><ArrowUpDown /></button>
-              <label className="booking-field"><span className="sr-only">Destination</span><MapPin aria-hidden="true" /><input value={destination} onChange={(event) => setDestination(event.target.value)} placeholder="Destination" /></label>
-              <label className="booking-field date-field"><span className="sr-only">Travel date</span><CalendarDays aria-hidden="true" /><input value={travelDate} onChange={(event) => setTravelDate(event.target.value)} type="date" /></label>
-              <label className="passenger-field"><span className="sr-only">Passengers</span><UsersRound aria-hidden="true" /><select value={passengers} onChange={(event) => setPassengers(event.target.value)}>{[1, 2, 3, 4, 5, 6].map((count) => <option key={count} value={count}>{count}</option>)}</select></label>
-              <label className="lady-toggle"><input checked={singleLady} onChange={(event) => setSingleLady(event.target.checked)} type="checkbox" /><span>Single Lady</span></label>
-              <button className="search-button" type="submit"><Search />Search</button>
-            </form>
-          </div>
-        </section>
+      <section className="home-v2-service-strip"><div className="civic-container"><div><Zap /><span><b>Travel alerts</b><small>Bring route updates into your journey.</small></span></div><button onClick={() => navigate("/tracking")}>Open journey monitor <ArrowRight /></button><div><BusFront /><span><b>Service information</b><small>Schedules, fare guidance, and passenger support.</small></span></div></div></section>
+    </main>
 
-        <section className="civic-container support-band" aria-label="Passenger support links">
-          <div className="feedback-card">
-            <img src={feedbackImage} alt="RoutePulse passenger feedback and coach service illustration" />
-            <div className="feedback-qr"><div className="qr-grid" aria-hidden="true" /><span>Share a route note</span><a href="#feedback">routepulse.example/feedback</a></div>
-          </div>
-          <div className="policy-card">
-            {["Booking policy (English)", "Booking policy (Hindi)", "Booking policy (Gujarati)"].map((item) => (
-              <button key={item} onClick={() => toast.info(`${item} will open in the complete policy library.`)}><ChevronRight />{item}</button>
-            ))}
-          </div>
-        </section>
+    <footer className="home-v2-footer"><div className="civic-container"><div><img src={routePulseLogo} alt="" /><span><b>RoutePulse Transit</b><small>Public Intercity Services</small></span></div><p>RoutePulse is a booking experience prototype. Current schedules, seats, tracking information, and travel notices are demonstration data unless an authorised source is connected.</p><nav><button onClick={() => setIsInfoOpen(true)}>Booking guidance</button><button onClick={() => navigate("/tracking")}>Journey monitor</button><a href="tel:18002336666">1800 233 666666</a></nav></div></footer>
+    <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="home-v2-scroll" aria-label="Scroll to top"><ArrowUp /></button>
 
-        <section className="metrics-section">
-          <div className="civic-container">
-            <SectionTitle title="RoutePulse Growing Numbers" />
-            <div className="metrics-grid">
-              {stats.map(({ label, value, icon: Icon, color }) => (
-                <article className={`metric-card ${color}`} key={label}>
-                  <Icon aria-hidden="true" />
-                  <h3>{label}</h3>
-                  <strong>{value}</strong>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="tracking-section">
-          <div className="civic-container">
-            <SectionTitle title="RoutePulse Live Tracking" />
-            <div className="tracking-actions">
-              <button onClick={() => toast.info("Live tracking opens after you choose a scheduled service.")}><BusFront /><span><b>RoutePulse Live Tracking</b><small>Follow your scheduled service</small></span><ArrowRight /></button>
-              <button onClick={() => toast.info("The mobile companion is available in the full service.")}><Apple /><span><b>Download iOS App</b><small>Trip alerts in your pocket</small></span><ArrowRight /></button>
-            </div>
-          </div>
-        </section>
-
-        <section className="destinations-section" id="destinations">
-          <div className="civic-container">
-            <SectionTitle title="Top Destinations" />
-            <p className="section-intro">Popular pilgrimage corridors, visitor landmarks, and commercial hubs with reliable scheduled services.</p>
-            <div className="destination-controls"><button onClick={() => toast.info("Previous destinations") } aria-label="Previous destinations"><ArrowLeft /></button><button onClick={() => toast.info("Next destinations") } aria-label="Next destinations"><ArrowRight /></button></div>
-            <div className="destination-grid">
-              <DestinationCard image={unityImage} title="Valley Monument" body="A striking riverside landmark set among green hills, connected through dedicated regional services." />
-              <DestinationCard image={templeImage} title="Sunstone Temple" body="A peaceful heritage stop with convenient onward connections for local and long-distance passengers." />
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="site-footer">
-        <div className="civic-container footer-upper">
-          {footerGroups.map((group, index) => <ul key={index}>{group.map((link) => <li key={link}><button onClick={() => toast.info(`${link} is available in the complete service.`)}><ChevronRight />{link}</button></li>)}</ul>)}
-        </div>
-        <div className="civic-container footer-support">
-          <div className="browser-compatibility"><span>Browser Compatibility</span><div className="browser-dots"><i className="chrome" /><i className="edge" /><i className="firefox" /><i className="opera" /></div></div>
-          <div className="app-downloads"><button onClick={() => toast.info("Android app link will open in the complete service.")}><Smartphone />Download Android App</button><span aria-hidden="true" /> <button onClick={() => toast.info("iOS app link will open in the complete service.")}><Apple />Download iOS App</button></div>
-          <a className="toll-free" href="tel:18002336666"><span>Toll Free<br />Number:</span><b>1800 233<br />666666</b></a>
-        </div>
-        <div className="footer-bottom">© RoutePulse Transit. All Rights Reserved. <span>Version Details: 21/08/2026, 20:00 PM</span></div>
-      </footer>
-
-      <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="scroll-top" aria-label="Scroll to top"><ArrowUp /></button>
-
-      {isInfoOpen && (
-        <div className="modal-backdrop" role="presentation">
-          <section className="information-modal" role="dialog" aria-modal="true" aria-labelledby="information-title">
-            <button className="modal-close" onClick={() => setIsInfoOpen(false)}>Close</button>
-            <h2 id="information-title">Important Information:</h2>
-            <p>For ticket history checking or ticket cancellation, every passenger is requested to provide their <strong>Name, Mobile Number and Email ID</strong> correctly at the time of booking.</p>
-            <div className="modal-rule" />
-            <p lang="gu">ટિકિટ હિસ્ટ્રી ચેકિંગ અને ટિકિટ કેન્સલેશન માટે, ટિકિટ બુકિંગ સમયે દરેક મુસાફરનું નામ, મોબાઇલ નંબર અને ઈ-મેલ આઈડી સાચું દર્શાવવું જરૂરી છે.</p>
-            <div className="modal-rule" />
-            <p lang="hi">टिकट हिस्ट्री और टिकट कैंसलेशन के लिए, टिकट बुकिंग के समय अपना नाम, मोबाइल नंबर और ईमेल आईडी सही दर्ज करना आवश्यक है।</p>
-          </section>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function SectionTitle({ title }: { title: string }) {
-  return <h2 className="section-title">{title}</h2>;
-}
-
-function DestinationCard({ image, title, body }: { image: string; title: string; body: string }) {
-  return (
-    <article className="destination-card">
-      <img src={image} alt="" />
-      <div><h3>{title}</h3><p>{body}</p><button onClick={() => toast.info(`${title} schedules are shown after search.`)}>View schedules <ChevronRight /></button></div>
-    </article>
-  );
+    {isInfoOpen && <div className="home-v2-modal-backdrop" role="presentation"><section className="home-v2-info-modal" role="dialog" aria-modal="true" aria-labelledby="booking-guidance-title"><button onClick={() => setIsInfoOpen(false)} aria-label="Close booking guidance"><X /></button><span><ShieldCheck />Booking guidance</span><h2 id="booking-guidance-title">Keep your journey details ready.</h2><p>Use your correct passenger name, mobile number, and email address when continuing to ticket confirmation. These details support booking reference, journey updates, and ticket retrieval.</p><div><CheckCircle2 />For this RoutePulse prototype, schedules, seats, fares, and tracking are demo data until an authorised operator source is connected.</div></section></div>}
+  </div>;
 }

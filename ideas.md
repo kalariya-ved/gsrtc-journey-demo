@@ -84,4 +84,12 @@ The tracking page is now treated as a **Journey Monitor** rather than an adminis
 
 The final tracking treatment favours flat, rule-led civic materials around the hero. Roboto Condensed now dominates route names, controls, status headings, and operational labels. The RoutePulse wheel-and-route emblem repeats as a service seal on the vehicle and arrival status, while the red accent is reserved for the active vehicle ring and official arrival rule.
 
+## Booking Home v2 Direction
+
+The main booking page becomes a **Journey Planner**: a dark, focused RoutePulse route hero carries the brand and travel promise, while the booking form becomes the dominant immediate task in a white, red-topped card. Supporting information is reduced to three practical assurances, route shortcuts, and a single service strip. The red accent marks the booking action and authoritative notice edges; RoutePulse Blue carries navigation, route information, and all structural hierarchy.
+
+The hero visual has been replaced with a branded RoutePulse service-grid schematic, using labelled corridor stations, blue route rails, a red-edged active coach seal, and operational network figures. Booking language is factual and task-forward: scheduled services, seat selection, and journey details. The search card retains priority over the hero through its overlap, clear red action, and administrative blue rules.
+
+Final verification confirms that the booking card remains the dominant task surface on desktop, with the route grid acting as an official supporting panel. The mobile page keeps the same booking-first order: service headline, route system visual, search form, assurances, corridors, and support links all remain readable without horizontal overflow.
+
 Final verification confirms that the Journey Monitor keeps one clear primary route canvas, a compact status summary, and a direct service-data notice on desktop. The mobile view preserves this reading order by stacking the hero controls, route canvas, arrival card, timeline, and notice without horizontal overflow.

@@ -64,4 +64,11 @@
 - [x] Define a clearer contemporary tracking layout and visual hierarchy.
 - [x] Redesign the tracking workspace, controls, and status presentation.
 - [x] Verify the refreshed interface on desktop and mobile.
-- [ ] Save the tracking redesign as a delivery checkpoint.
+- [x] Save the tracking redesign as a delivery checkpoint.
+
+# Main Ticket-Booking Homepage Redesign
+
+- [x] Define a focused booking-home hierarchy and refreshed RoutePulse visual language.
+- [x] Redesign the hero, ticket search controls, and supporting journey information.
+- [x] Verify the homepage at desktop and mobile breakpoints and confirm search navigation.
+- [ ] Save the homepage redesign as a delivery checkpoint.

@@ -3,6 +3,7 @@
  * red task accents, operational density, rectangular fields, and restrained responsive motion.
  */
 import { useState } from "react";
+import { useLocation } from "wouter";
 import {
   Apple,
   ArrowLeft,
@@ -94,6 +95,7 @@ function ActionToast({ label }: { label: string }) {
 }
 
 export default function Home() {
+  const [, navigate] = useLocation();
   const [isInfoOpen, setIsInfoOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(bookingTabs[0]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -113,7 +115,7 @@ export default function Home() {
       toast.error("Enter the source, destination, and travel date to search buses.");
       return;
     }
-    toast.success(`Searching services from ${source} to ${destination} for ${travelDate}.`);
+    navigate(`/results?source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}&date=${encodeURIComponent(travelDate)}&passengers=${encodeURIComponent(passengers)}&singleLady=${singleLady ? "1" : "0"}`);
   };
 
   return (

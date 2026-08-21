@@ -57,3 +57,9 @@ The RoutePulse mark is a circular wheel-and-route emblem: a solid blue ring, a p
 ## Verification Notes
 
 The implemented desktop page preserves the reference's key visual sequence: two-line utility header, civic identity masthead, notice bar, illustrated hero, dark-blue booking rail, feedback-and-policy row, four colored metric tiles, tracking action row, two destination cards, compact dark footer, floating top control, and the visible important-information modal state. The modal creates the same dimmed-page visual hierarchy as the supplied capture, while remaining keyboard-accessible and closable.
+
+## Style Decisions
+
+Results and listing pages retain the Civic Transit Portal character through flat rectangular panels, strong RoutePulse Blue labels, visible rule lines, compact administrative density, and square service symbols rather than a soft marketplace-card treatment. The RoutePulse identity uses the wheel-and-route mark as part of an official compact lockup, with RoutePulse Blue carrying navigation, metadata, and section hierarchy. Warm signal red remains limited to primary booking actions and urgent notices.
+
+The refined desktop search-results screen verifies this system in practice: the reinforced RoutePulse lockup, blue summary band, filter panel, section rule, service rows, amenity rails, and boxed route-status metadata read as a consistent formal service surface. Filter labels are aligned and readable, and red is limited to the seat-selection action.

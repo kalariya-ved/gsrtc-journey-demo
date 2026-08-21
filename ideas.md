@@ -98,4 +98,6 @@ The booking form now provides compact city-and-station suggestions with mouse an
 
 The ticket action row now includes an accessible Share Ticket control that reveals clear WhatsApp and email choices. Both share payloads retain the sandbox-not-valid-for-travel notice, ensuring that external sharing never represents a genuine GSRTC reservation. The control remains balanced within both desktop and mobile ticket action layouts.
 
+The location selector now commits a source or destination option on pointer interaction before focus blur can dismiss the suggestion list. Arrow-key navigation is guarded for empty result sets, while Enter still commits the highlighted station. The desktop and mobile booking layouts remain stable after this interaction fix.
+
 Final verification confirms that the Journey Monitor keeps one clear primary route canvas, a compact status summary, and a direct service-data notice on desktop. The mobile view preserves this reading order by stacking the hero controls, route canvas, arrival card, timeline, and notice without horizontal overflow.

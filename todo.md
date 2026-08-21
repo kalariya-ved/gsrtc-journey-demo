@@ -86,4 +86,11 @@
 - [x] Define sandbox-safe WhatsApp and email share payloads for the journey preview.
 - [x] Add a Share Ticket menu with WhatsApp and email options to the confirmation page.
 - [x] Verify sharing controls and responsive ticket layout.
-- [ ] Save the ticket-sharing enhancement as a delivery checkpoint.
+- [x] Save the ticket-sharing enhancement as a delivery checkpoint.
+
+# Station-Selection Fix
+
+- [x] Reproduce the source and destination station-selection failure.
+- [x] Correct the autocomplete state, keyboard behavior, and search-query handoff.
+- [x] Verify station selection on desktop and mobile.
+- [ ] Save the station-selection fix as a delivery checkpoint.

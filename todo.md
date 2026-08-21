@@ -32,4 +32,29 @@
 - [x] Define dummy seat states, price calculation, and modal confirmation behavior.
 - [x] Implement the bus-card seat modal with interactive availability states.
 - [x] Verify the modal across desktop and mobile layouts.
-- [ ] Save the seat-modal enhancement as a delivery checkpoint.
+- [x] Save the seat-modal enhancement as a delivery checkpoint.
+
+# Authorized Real-Time GSRTC Data Assessment
+
+- [x] Identify official or otherwise authorized GSRTC real-time schedule, availability, or vehicle-location data sources.
+- [x] Determine credentials, contractual permissions, and required backend/database architecture.
+- [x] Provide an implementation recommendation that preserves data-source terms and user privacy.
+
+# Community Repository Assessment
+
+- [x] Inspect the supplied GSRTC reservation-system repository’s declared purpose, data sources, and licence.
+- [x] Identify architectural concepts that may be reimplemented independently in RoutePulse.
+- [x] Determine whether the repository contains an authorized real-time GSRTC data connection.
+
+# AGUTS Repository Assessment
+
+- [x] Inspect the supplied AGUTS repository’s stated purpose, licence, and data sources.
+- [x] Evaluate whether it provides real-time GSRTC data or only general transit implementation patterns.
+- [x] Record safe-reuse guidance and a RoutePulse integration recommendation.
+
+# Mock Live-Tracking Enhancement
+
+- [x] Define mock route movements, timestamps, ETA states, and an explicit demo disclosure.
+- [x] Implement route-specific mock tracking controls and animated vehicle positions.
+- [x] Verify mock tracking states across desktop and mobile layouts.
+- [ ] Save the mock-tracking enhancement as a delivery checkpoint.

@@ -73,3 +73,7 @@ Combining the AC type filter with the ₹400–₹500 fare band further narrows 
 The results-page Select seats action now opens an in-page dummy coach modal. It presents available, selected, booked, and reserved states, a preselected available seat, per-service boarding and dropping fields, and an explicitly labelled demo continuation action without implying a real reservation.
 
 Interaction verification confirms that adding a second available seat updates the selected-seat summary and fare total from ₹338 to ₹676. Continuing transfers the selected seat identifiers into the passenger-details route, where they remain visible in the booking summary.
+
+The tracking view applies a denser civic service-desk hierarchy: inner pages have a thin authority utility band, strong RoutePulse Blue structural bands, formal update labels, and a branded blue route rail with official waypoint markers. Simulated data remains conspicuously labelled through a blue public-service notice; signal red is reserved for the active vehicle-seal ring and immediate intervention emphasis.
+
+Desktop verification confirms the branded tracking rail, formal service notice, compact control band, simulated status panel, and route-progress rail form a cohesive civic-service layout. Mobile verification confirms the controls stack into clear full-width actions and the route map, status panel, support contact, and route facts remain readable without horizontal overflow.

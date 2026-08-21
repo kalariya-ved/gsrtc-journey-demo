@@ -826,3 +826,84 @@
     .results-seat-points { grid-template-columns: 1fr; }
   }
 }
+
+@layer components {
+  /* Mock tracking: animated operational data remains visually distinct and explicitly disclosed as simulated. */
+  .mock-disclosure { margin-bottom: .9rem; display: grid; grid-template-columns: 24px 1fr; gap: .45rem; align-items: start; border: 1px solid #cfb467; border-left: 4px solid #aa820e; background: #fff8dd; padding: .65rem .7rem; }
+  .mock-disclosure > svg { width: 1.05rem; color: #8a6703; }
+  .mock-disclosure span { display: grid; gap: .12rem; }
+  .mock-disclosure b { color: #715304; font-size: .66rem; text-transform: uppercase; letter-spacing: .05em; }
+  .mock-disclosure small { color: #7a6d46; font-size: .6rem; line-height: 1.4; }
+  .tracking-actions { display: flex; align-items: center; gap: .35rem; }
+  .tracking-actions button { display: inline-flex; align-items: center; gap: .25rem; border: 1px solid #99b9cf; color: #075f9b; background: #f5fbff; padding: .5rem .6rem; font-size: .62rem; font-weight: 800; white-space: nowrap; }
+  .tracking-actions button svg { width: .8rem; }
+  .tracking-service-bar { display: grid; grid-template-columns: 1.5fr .75fr .75fr; gap: .55rem; align-items: end; border-bottom: 1px solid #b4c8d7; background: #f5fbff; padding: .65rem .85rem; }
+  .tracking-service-bar label, .tracking-service-bar > div { display: grid; gap: .18rem; color: #57758d; font-size: .58rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+  .tracking-service-bar select { min-width: 0; height: 32px; border: 1px solid #9dbbd0; background: #fff; color: #174f78; padding: 0 .35rem; font-size: .64rem; font-weight: 800; outline: none; }
+  .tracking-service-bar b { color: #0a5f9a; font-family: "Roboto Condensed", sans-serif; font-size: .85rem; font-weight: 800; letter-spacing: 0; text-transform: none; }
+  .mock-route-frame { --mock-progress: 50%; position: relative; overflow: hidden; min-height: 430px; background: #edf6fb; color: #064e8b; }
+  .mock-route-path { position: absolute; left: 10%; right: 10%; top: 53%; height: 8px; background: #a9ccdf; box-shadow: 0 0 0 5px rgba(255,255,255,.76); }
+  .mock-route-path::before { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--mock-progress); background: #075e9b; transition: width 850ms var(--ease-in-out); }
+  .mock-route-path i { position: absolute; top: 50%; width: 19px; height: 19px; transform: translate(-50%, -50%); border: 3px solid #fff; border-radius: 50%; background: #0a659f; box-shadow: 0 0 0 2px #0a659f; }
+  .mock-route-origin { left: 0; }
+  .mock-route-stop { left: 50%; background: #fff !important; box-shadow: 0 0 0 2px #be9517 !important; }
+  .mock-route-destination { left: 100%; background: #fff !important; box-shadow: 0 0 0 2px #0a659f !important; }
+  .mock-bus-marker { position: absolute; z-index: 3; left: var(--mock-progress); top: 53%; width: 46px; height: 46px; display: grid; place-items: center; transform: translate(-50%, -50%); border: 3px solid #fff; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px #b82117, 0 5px 14px rgba(6,46,73,.3); transition: left 850ms var(--ease-in-out); }
+  .mock-bus-marker img { width: 32px; height: 32px; object-fit: contain; }
+  .mock-bus-marker span { position: absolute; right: -11px; top: -6px; display: grid; place-items: center; width: 19px; height: 19px; border-radius: 50%; background: #b82117; color: #fff; font-size: .48rem; font-weight: 900; }
+  .mock-current-label { left: var(--mock-progress); top: 33%; width: 160px; transform: translateX(-50%); transition: left 850ms var(--ease-in-out); }
+  .mock-route-progress { position: absolute; left: 1rem; right: 1rem; bottom: 1rem; display: grid; grid-template-columns: 1fr auto; gap: .28rem .5rem; border: 1px solid #90b4cf; background: rgba(255,255,255,.92); padding: .45rem .5rem; color: #3d637f; font-size: .56rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+  .mock-route-progress b { color: #0a5f9b; font-family: "Roboto Condensed", sans-serif; font-size: .82rem; }
+  .mock-route-progress i { grid-column: 1 / -1; display: block; height: 5px; overflow: hidden; background: #d5e3ed; }
+  .mock-route-progress em { display: block; height: 100%; background: #075e9b; transition: width 850ms var(--ease-in-out); }
+  @media (max-width: 760px) {
+    .tracking-actions { width: 100%; }
+    .tracking-actions button { flex: 1; justify-content: center; }
+    .tracking-service-bar { grid-template-columns: 1fr 1fr; padding: .6rem .7rem; }
+    .tracking-service-bar label { grid-column: 1 / -1; }
+    .mock-route-frame { min-height: 320px; }
+    .mock-current-label { top: 27%; width: 130px; }
+  }
+}
+
+@layer components {
+  /* Tracking civic refinement: institutional blue bands, formal service-notice language, and a branded route rail. */
+  .booking-utility-bar { min-height: 25px; background: #064e8b; color: #d8ecf9; border-bottom: 2px solid #b82117; }
+  .booking-utility-content { min-height: 25px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: .54rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .booking-header { border-top: 0; border-bottom: 3px solid #86b5d4; }
+  .booking-header-content { min-height: 68px; }
+  .mock-disclosure { border-color: #7faac8; border-left-color: #064e8b; background: #eaf5fd; }
+  .mock-disclosure > svg { color: #064e8b; }
+  .mock-disclosure b { color: #064e8b; }
+  .mock-disclosure small { color: #476d88; }
+  .tracking-map-panel, .tracking-status-panel { border-color: #80aac6; border-top-width: 6px; }
+  .tracking-map-heading { background: linear-gradient(102deg, #064e8b, #0870ad); border-bottom-color: #0a4775; }
+  .tracking-map-heading span { color: #cbeafa; }
+  .tracking-map-heading h2 { color: #fff; }
+  .tracking-map-heading p { color: #e3f3fc; }
+  .tracking-map-heading button { border-color: #d3e9f7; background: #fff; color: #064e8b; }
+  .tracking-service-bar { border-bottom: 3px solid #0a5b93; background: #e8f4fb; }
+  .tracking-service-bar label, .tracking-service-bar > div { color: #315f81; }
+  .tracking-service-bar select { border-color: #5d94b9; }
+  .mock-route-frame { background: #dceefa; }
+  .mock-route-path { height: 11px; border-block: 1px solid #064e8b; background: #8fbedb; box-shadow: 0 0 0 5px rgba(255,255,255,.86); }
+  .mock-route-path::before { background: linear-gradient(90deg, #064e8b, #0b78b9); }
+  .mock-route-path i { width: 22px; height: 22px; border-width: 4px; }
+  .mock-route-stop { background: #fff9dc !important; box-shadow: 0 0 0 3px #b4890b !important; }
+  .mock-bus-marker { width: 52px; height: 52px; border-width: 4px; box-shadow: 0 0 0 4px #b82117, 0 6px 16px rgba(6,46,73,.34); }
+  .mock-bus-marker::before { content: "ROUTEPULSE"; position: absolute; left: 50%; bottom: -19px; transform: translateX(-50%); color: #064e8b; font-size: .43rem; font-weight: 900; letter-spacing: .08em; }
+  .mock-current-label { color: #064e8b; }
+  .mock-route-progress { border-color: #5b91b8; background: #fff; }
+  .mock-route-progress i { height: 7px; background: #c6dce9; }
+  .mock-route-progress em { background: linear-gradient(90deg, #064e8b, #0875b5); }
+  .tracking-current { background: #e9f5fd; }
+  .eta-block { background: #064e8b; }
+  .eta-block span, .eta-block strong, .eta-block small { color: #fff; }
+  .tracking-stop-list h2 { border-bottom: 2px solid #0b609b; padding-bottom: .35rem; }
+  .tracking-contact { border-color: #729dbb; background: #eaf5fd; }
+  @media (max-width: 760px) {
+    .booking-utility-content { font-size: .48rem; }
+    .booking-utility-content span:last-child { display: none; }
+    .booking-header-content { min-height: 61px; }
+  }
+}

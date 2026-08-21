@@ -1,53 +1,81 @@
-/** Civic Transit Portal design: route-centered tracking board with map context, official status rows, and transparent demo labelling. */
-import { useRef, useState } from "react";
-import { BusFront, CheckCircle2, Clock3, MapPin, Navigation, Route, Signal, UserRound } from "lucide-react";
+/**
+ * Civic Transit Portal design: a route-centred operational board with explicit mock-data disclosure,
+ * RoutePulse blue movement cues, compact status controls, and no implication of a real GSRTC feed.
+ */
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { BusFront, CheckCircle2, Clock3, MapPin, Navigation, Pause, Play, Radio, RefreshCw, Route, Signal, UserRound } from "lucide-react";
 import { toast } from "sonner";
 import { BookingShell } from "@/components/BookingShell";
-import { MapView } from "@/components/Map";
 
 const routePulseLogo = "/manus-storage/routepulse-logo_c9f17078.png";
 
-export default function Tracking() {
-  const hasInitialized = useRef(false);
-  const [isMapReady, setIsMapReady] = useState(false);
+type TrackingSnapshot = { progress: number; anchorIndex: number; status: string; location: string; eta: string; remaining: string; updateAge: string; speed: string };
+type TrackingService = { id: string; label: string; route: string; vehicle: string; schedule: string; stops: Array<{ name: string; note: string }>; snapshots: TrackingSnapshot[] };
 
-  return (
-    <BookingShell step="ticket" eyebrow="Live service tracking" title="RoutePulse Express · RP-420">
-      <div className="tracking-page-layout">
-        <section className="tracking-map-panel">
-          <div className="tracking-map-heading">
-            <div>
-              <span><Signal />Service signal active</span>
-              <h2>Ahmedabad to Vadodara</h2>
-              <p>Demo route position shown for interface preview. Live GPS requires an integrated fleet-data provider.</p>
-            </div>
-            <button onClick={() => toast.info("The service view is refreshed in the connected tracking system.")}><Navigation />Refresh</button>
-          </div>
-          <div className="tracking-map-frame">
-            <MapView
-              className="routepulse-map"
-              initialCenter={{ lat: 22.7, lng: 72.88 }}
-              initialZoom={9}
-              onMapReady={(map) => {
-                setIsMapReady(true);
-                if (hasInitialized.current || !window.google) return;
-                hasInitialized.current = true;
-                const points = [{ lat: 23.0225, lng: 72.5714 }, { lat: 22.716, lng: 72.836 }, { lat: 22.3072, lng: 73.1812 }];
-                new window.google.maps.Polyline({ path: points, geodesic: true, strokeColor: "#075e9b", strokeOpacity: 0.9, strokeWeight: 5, map });
-                points.forEach((position, index) => new window.google.maps.Marker({ map, position, title: index === 1 ? "RoutePulse Express · demo location" : index === 0 ? "Ahmedabad" : "Vadodara", label: index === 1 ? "RP" : undefined }));
-              }}
-            />
-            {!isMapReady && <div className="tracking-map-fallback"><div className="fallback-map-grid" /><div className="fallback-route"><i className="route-origin" /><i className="route-current"><img src={routePulseLogo} alt="" /></i><i className="route-destination" /></div><span className="fallback-label origin-label">Ahmedabad<br /><small>Departed</small></span><span className="fallback-label current-label">RoutePulse Express<br /><small>Demo location</small></span><span className="fallback-label destination-label">Vadodara<br /><small>Expected 12:20 PM</small></span><div className="fallback-map-stamp"><img src={routePulseLogo} alt="" /><span>RoutePulse<br />Tracking preview</span></div></div>}
-          </div>
-        </section>
-        <aside className="tracking-status-panel">
-          <div className="tracking-current"><BusFront /><div><span>Current status</span><strong>On route</strong><small>Last demo update: 2 minutes ago</small></div></div>
-          <div className="eta-block"><span>Estimated arrival</span><strong>12:20 PM</strong><small>Approximately 1 hr 35 min remaining</small></div>
-          <div className="tracking-stop-list"><h2>Route progress</h2><div className="stop is-complete"><i><CheckCircle2 /></i><span><b>Ahmedabad</b><small>Departed · 06:30 AM</small></span></div><div className="stop is-current"><i><Navigation /></i><span><b>Anand Bypass</b><small>Passing now · Demo location</small></span></div><div className="stop"><i><MapPin /></i><span><b>Vadodara</b><small>Expected · 12:20 PM</small></span></div></div>
-          <button onClick={() => toast.info("Driver and fleet contact details require a connected operations system.")} className="tracking-contact"><UserRound />Service support <span>1800 233 666666</span></button>
-        </aside>
-      </div>
-      <div className="tracking-info-grid"><div><Route /><span><b>Service route</b><small>Ahmedabad → Anand Bypass → Vadodara</small></span></div><div><Clock3 /><span><b>Scheduled duration</b><small>5 hours 50 minutes</small></span></div><div><BusFront /><span><b>Vehicle</b><small>Volvo AC Seater · RP-420</small></span></div></div>
-    </BookingShell>
-  );
+const mockServices: TrackingService[] = [
+  {
+    id: "RP-420", label: "RoutePulse Express · RP-420", route: "Ahmedabad → Vadodara", vehicle: "Volvo AC Seater", schedule: "06:30 – 12:20", stops: [{ name: "Ahmedabad", note: "Departed · 06:30 AM" }, { name: "Anand Bypass", note: "Scheduled rest stop" }, { name: "Vadodara", note: "Scheduled arrival · 12:20 PM" }], snapshots: [
+      { progress: 28, anchorIndex: 1, status: "On route", location: "Near Kheda Junction", eta: "12:20 PM", remaining: "1 hr 35 min remaining", updateAge: "15 seconds ago", speed: "52 km/h" },
+      { progress: 47, anchorIndex: 1, status: "Approaching stop", location: "Approaching Anand Bypass", eta: "12:16 PM", remaining: "1 hr 12 min remaining", updateAge: "5 seconds ago", speed: "44 km/h" },
+      { progress: 66, anchorIndex: 1, status: "At rest stop", location: "Anand Bypass", eta: "12:24 PM", remaining: "1 hr 3 min remaining", updateAge: "Now", speed: "0 km/h" },
+      { progress: 82, anchorIndex: 2, status: "On final leg", location: "Near Nadiad", eta: "12:21 PM", remaining: "36 min remaining", updateAge: "9 seconds ago", speed: "55 km/h" },
+    ],
+  },
+  {
+    id: "RP-887", label: "GreenRoute Electric · RP-887", route: "Ahmedabad → Vadodara", vehicle: "Electric AC Coach", schedule: "17:45 – 23:25", stops: [{ name: "Ahmedabad", note: "Departed · 05:45 PM" }, { name: "Nadiad Circle", note: "Scheduled comfort stop" }, { name: "Vadodara", note: "Scheduled arrival · 11:25 PM" }], snapshots: [
+      { progress: 18, anchorIndex: 0, status: "Departing", location: "Leaving Ahmedabad ISBT", eta: "11:25 PM", remaining: "4 hr 44 min remaining", updateAge: "11 seconds ago", speed: "31 km/h" },
+      { progress: 42, anchorIndex: 1, status: "On route", location: "Near Kheda Junction", eta: "11:19 PM", remaining: "3 hr 57 min remaining", updateAge: "Now", speed: "50 km/h" },
+      { progress: 70, anchorIndex: 1, status: "Charging stop", location: "Nadiad Circle", eta: "11:29 PM", remaining: "3 hr 15 min remaining", updateAge: "6 seconds ago", speed: "0 km/h" },
+      { progress: 88, anchorIndex: 2, status: "On final leg", location: "Near Vadodara outskirts", eta: "11:25 PM", remaining: "42 min remaining", updateAge: "14 seconds ago", speed: "56 km/h" },
+    ],
+  },
+];
+
+export default function Tracking() {
+  const [serviceId, setServiceId] = useState(mockServices[0].id);
+  const [snapshotIndex, setSnapshotIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const activeService = useMemo(() => mockServices.find((service) => service.id === serviceId) ?? mockServices[0], [serviceId]);
+  const snapshot = activeService.snapshots[snapshotIndex];
+  const trackingStyle = { "--mock-progress": `${snapshot.progress}%` } as CSSProperties;
+
+  const advanceMock = () => setSnapshotIndex((current) => (current + 1) % activeService.snapshots.length);
+
+  useEffect(() => {
+    setSnapshotIndex(0);
+  }, [activeService.id]);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    const timer = window.setInterval(advanceMock, 4200);
+    return () => window.clearInterval(timer);
+  }, [isPlaying, activeService.id]);
+
+  const refreshMock = () => {
+    advanceMock();
+    toast.info("Mock tracking feed advanced to the next simulated update.");
+  };
+
+  return <BookingShell step="ticket" eyebrow="Live service tracking" title={activeService.label}>
+    <div className="mock-disclosure"><Radio /><span><b>Demo service notice</b><small>All vehicle positions, ETAs, timestamps, and speeds below are simulated for the RoutePulse demo. They are not sourced from GSRTC.</small></span></div>
+    <div className="tracking-page-layout">
+      <section className="tracking-map-panel">
+        <div className="tracking-map-heading">
+          <div><span><Signal />Simulated route signal</span><h2>{activeService.route}</h2><p>Choose a service or play through simulated route updates. A real GPS feed requires an authorized operator integration.</p></div>
+          <div className="tracking-actions"><button onClick={() => setIsPlaying((current) => !current)} aria-pressed={isPlaying}>{isPlaying ? <Pause /> : <Play />}{isPlaying ? "Pause demo" : "Play demo"}</button><button onClick={refreshMock}><RefreshCw />Next update</button></div>
+        </div>
+        <div className="tracking-service-bar"><label>Tracked service<select value={serviceId} onChange={(event) => setServiceId(event.target.value)}>{mockServices.map((service) => <option key={service.id} value={service.id}>{service.label}</option>)}</select></label><div><span>Update cadence</span><b>Every 4.2 sec</b></div><div><span>Feed sequence</span><b>{snapshotIndex + 1} of {activeService.snapshots.length}</b></div></div>
+        <div className="tracking-map-frame mock-route-frame" style={trackingStyle}>
+          <div className="fallback-map-grid" />
+          <div className="mock-route-path"><i className="mock-route-origin" /><i className="mock-route-stop" /><i className="mock-route-destination" /></div>
+          <div className="mock-bus-marker"><img src={routePulseLogo} alt="" /><span>RP</span></div>
+          <span className="fallback-label origin-label">Ahmedabad<small>Departed</small></span><span className="fallback-label current-label mock-current-label">{snapshot.location}<small>{snapshot.status} · {snapshot.speed}</small></span><span className="fallback-label destination-label">Vadodara<small>ETA {snapshot.eta}</small></span>
+          <div className="fallback-map-stamp"><img src={routePulseLogo} alt="" /><span>Mock route<br />tracking preview</span></div>
+          <div className="mock-route-progress"><span>Simulated route progress</span><b>{snapshot.progress}%</b><i><em style={{ width: `${snapshot.progress}%` }} /></i></div>
+        </div>
+      </section>
+      <aside className="tracking-status-panel" aria-live="polite"><div className="tracking-current"><BusFront /><div><span>Simulated service status</span><strong>{snapshot.status}</strong><small>Last simulated update: {snapshot.updateAge}</small></div></div><div className="eta-block"><span>Estimated arrival</span><strong>{snapshot.eta}</strong><small>{snapshot.remaining}</small></div><div className="tracking-stop-list"><h2>Route progress</h2>{activeService.stops.map((stop, index) => <div key={stop.name} className={index < snapshot.anchorIndex ? "stop is-complete" : index === snapshot.anchorIndex ? "stop is-current" : "stop"}><i>{index < snapshot.anchorIndex ? <CheckCircle2 /> : index === snapshot.anchorIndex ? <Navigation /> : <MapPin />}</i><span><b>{stop.name}</b><small>{index === snapshot.anchorIndex ? `${snapshot.status} · ${snapshot.location}` : stop.note}</small></span></div>)}</div><button onClick={() => toast.info("Driver and fleet contact details require a connected operations system.")} className="tracking-contact"><UserRound />Service support <span>1800 233 666666</span></button></aside>
+    </div>
+    <div className="tracking-info-grid"><div><Route /><span><b>Service route</b><small>{activeService.route.replace(" → ", " → Anand Bypass → ")}</small></span></div><div><Clock3 /><span><b>Scheduled duration</b><small>{activeService.schedule}</small></span></div><div><BusFront /><span><b>Vehicle</b><small>{activeService.vehicle} · {activeService.id}</small></span></div></div>
+  </BookingShell>;
 }

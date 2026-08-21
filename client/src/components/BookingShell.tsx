@@ -24,6 +24,7 @@ export function BookingShell({ step, title, eyebrow, children }: { step: Booking
 
   return (
     <div className="booking-page min-h-screen bg-[#f4f7fa]">
+      <div className="booking-utility-bar"><div className="civic-container booking-utility-content"><span>RoutePulse Transit Service Desk</span><span>Public intercity information system</span></div></div>
       <header className="booking-header">
         <div className="civic-container booking-header-content">
           <button onClick={() => navigate("/")} className="booking-brand"><img src={routePulseLogo} alt="" /><span><strong>RoutePulse Transit</strong><small>Public Intercity Services</small></span></button>

@@ -71,4 +71,12 @@
 - [x] Define a focused booking-home hierarchy and refreshed RoutePulse visual language.
 - [x] Redesign the hero, ticket search controls, and supporting journey information.
 - [x] Verify the homepage at desktop and mobile breakpoints and confirm search navigation.
-- [ ] Save the homepage redesign as a delivery checkpoint.
+- [x] Save the homepage redesign as a delivery checkpoint.
+
+# Autocomplete and Ticket Output Enhancements
+
+- [x] Define demo city and station suggestions plus accessible keyboard selection behavior.
+- [x] Implement source and destination autocomplete in the main booking form.
+- [x] Enable demo ticket print, PDF download, and SMS-share actions with clear disclosure.
+- [x] Verify autocomplete, ticket outputs, and responsive layouts.
+- [ ] Save the enhancement as a delivery checkpoint.

@@ -1303,3 +1303,64 @@
     .home-v2-network-foot { font-size: .42rem; }
   }
 }
+
+@layer components {
+  /* Autocomplete and ticket output: quick city selection with a compact official list and sandbox-labelled traveller exports. */
+  .home-v2-location-field { position: relative; }
+  .home-v2-location-field > div { position: relative; }
+  .location-suggestions { position: absolute; z-index: 40; left: 0; right: 0; top: calc(100% + .28rem); overflow: hidden; border: 1px solid #8eafc5; background: #fff; box-shadow: 0 12px 22px rgba(10,53,82,.16); }
+  .location-suggestions button { width: 100%; display: grid; grid-template-columns: 19px 1fr auto; align-items: center; gap: .38rem; padding: .55rem .62rem; border-bottom: 1px solid #e2ebf0; color: #315d7e; text-align: left; }
+  .location-suggestions button:last-child { border-bottom: 0; }
+  .location-suggestions button:hover, .location-suggestions button.is-active { background: #e9f6fd; }
+  .location-suggestions button > svg { width: .88rem; color: #0866a2; }
+  .location-suggestions button span { display: grid; gap: .08rem; min-width: 0; }
+  .location-suggestions button b { color: #174b70; font-family: "Roboto Condensed", sans-serif; font-size: .78rem; font-weight: 800; }
+  .location-suggestions button small { color: #788f9f; font-size: .55rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .location-suggestions button em { border-left: 1px solid #c8d9e5; color: #0a63a0; padding-left: .45rem; font-family: "Roboto Condensed", sans-serif; font-size: .62rem; font-style: normal; font-weight: 800; }
+  .location-suggestions p { padding: .7rem; color: #708799; font-size: .63rem; }
+  .ticket-action-disclosure { display: flex; align-items: flex-start; gap: .36rem; margin-top: .85rem; border-left: 4px solid #075f9b; background: #eaf5fd; padding: .58rem .68rem; color: #51758f; font-size: .62rem; line-height: 1.4; }
+  .ticket-action-disclosure svg { flex: 0 0 auto; width: .88rem; color: #075f9b; }
+  .ticket-actions button { position: relative; }
+  @media (max-width: 760px) {
+    .location-suggestions { top: calc(100% + .2rem); }
+    .location-suggestions button { padding: .48rem .5rem; }
+  }
+}
+
+@layer components {
+  /* Ticket document refinement: stronger authority markers, route schematic motif, and secondary sandbox messaging. */
+  .booking-brand strong { display: inline-flex; align-items: baseline; gap: .28rem; }
+  .booking-brand strong i { border-left: 2px solid #b82117; color: #0a669f; padding-left: .28rem; font-size: .48rem; font-style: normal; letter-spacing: .07em; text-transform: uppercase; }
+  .ticket-notice { border-left-width: 3px; background: #f1f8fc; }
+  .ticket-notice b { font-family: "Roboto Condensed", sans-serif; text-transform: uppercase; letter-spacing: .03em; }
+  .ticket-paper { border-color: #93b4c9; border-top-width: 7px; box-shadow: none; }
+  .ticket-paper-head { border-bottom: 2px solid #0a5f99; background: #f7fbfd; }
+  .ticket-document-lockup { display: flex; align-items: center; gap: .5rem; }
+  .ticket-document-lockup > img { width: 42px; height: 42px; padding: 3px; border: 1px solid #8eb3cc; background: #fff; }
+  .ticket-document-lockup > div { display: grid; gap: .06rem; }
+  .ticket-document-lockup h2 { color: #063f70; }
+  .ticket-status { border-color: #a8bed0; background: #eaf5fc; color: #075f9b; font-family: "Roboto Condensed", sans-serif; }
+  .ticket-route { padding-bottom: .8rem; }
+  .ticket-route-schematic { position: relative; display: grid; grid-template-columns: auto 1fr auto 1fr auto; align-items: center; gap: .3rem; padding: 0 1.1rem 1rem; border-bottom: 1px solid #b9cbd7; }
+  .ticket-route-schematic > i { height: 6px; background: #b2d2e2; box-shadow: 0 0 0 3px #f5fbfe; }
+  .ticket-route-schematic > i:first-of-type { background: linear-gradient(90deg, #064e8b, #0d82bd); }
+  .ticket-station { position: relative; z-index: 1; display: grid; justify-items: center; gap: .08rem; min-width: 43px; color: #174d70; font-family: "Roboto Condensed", sans-serif; }
+  .ticket-station::before { content: ""; width: 15px; height: 15px; border: 3px solid #fff; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px #0876b4; }
+  .ticket-station b { font-size: .64rem; letter-spacing: .06em; }
+  .ticket-station small { color: #708a9e; font-family: "Noto Sans", sans-serif; font-size: .51rem; font-weight: 700; }
+  .ticket-station-active { min-width: 57px; }
+  .ticket-station-active::before { display: none; }
+  .ticket-station-active img { width: 32px; height: 32px; padding: 2px; border: 3px solid #fff; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px #b82117; }
+  .ticket-station-active b { margin-top: .08rem; color: #b82117; }
+  .ticket-facts { border-color: #a9c0d0; background: #fbfdfe; }
+  .ticket-facts b { color: #064e8b; font-family: "Roboto Condensed", sans-serif; }
+  .ticket-verification { border-top: 1px solid #aac0d0; background: #f4f9fc; }
+  .ticket-action-disclosure { border-left-color: #b82117; background: #f7fbfd; }
+  .ticket-action-disclosure svg { color: #b82117; }
+  @media (max-width: 760px) {
+    .booking-brand strong i { display: none; }
+    .ticket-route-schematic { padding: 0 .65rem .85rem; }
+    .ticket-paper-head { padding: .75rem; }
+    .ticket-document-lockup > img { width: 36px; height: 36px; }
+  }
+}

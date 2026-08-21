@@ -92,4 +92,8 @@ The hero visual has been replaced with a branded RoutePulse service-grid schemat
 
 Final verification confirms that the booking card remains the dominant task surface on desktop, with the route grid acting as an official supporting panel. The mobile page keeps the same booking-first order: service headline, route system visual, search form, assurances, corridors, and support links all remain readable without horizontal overflow.
 
+The ticket preview now follows the same document-system rules as the booking page: its primary reading order is journey document, RoutePulse service-network seal, route schematic, passenger facts, and fare. The sandbox message remains present but secondary to the official document treatment. The active service marker and route rail repeat the service-grid motif used on the booking home.
+
+The booking form now provides compact city-and-station suggestions with mouse and keyboard selection semantics. Ticket output is explicitly sandbox-labeled: printing uses the browser print workflow, PDF downloads are generated locally as a preview document, and SMS creates a shareable message draft without sending any message. Desktop and mobile verification confirms that the form, document facts, disclosure, and output controls remain readable without horizontal overflow.
+
 Final verification confirms that the Journey Monitor keeps one clear primary route canvas, a compact status summary, and a direct service-data notice on desktop. The mobile view preserves this reading order by stacking the hero controls, route canvas, arrival card, timeline, and notice without horizontal overflow.

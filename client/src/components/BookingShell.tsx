@@ -27,7 +27,7 @@ export function BookingShell({ step, title, eyebrow, children }: { step: Booking
       <div className="booking-utility-bar"><div className="civic-container booking-utility-content"><span>RoutePulse Transit Service Desk</span><span>Public intercity information system</span></div></div>
       <header className="booking-header">
         <div className="civic-container booking-header-content">
-          <button onClick={() => navigate("/")} className="booking-brand"><img src={routePulseLogo} alt="" /><span><strong>RoutePulse Transit</strong><small>Public Intercity Services</small></span></button>
+          <button onClick={() => navigate("/")} className="booking-brand"><img src={routePulseLogo} alt="" /><span><strong>RoutePulse Transit <i>Service Network</i></strong><small>Public Intercity Services</small></span></button>
           <nav className="booking-header-nav" aria-label="Traveller navigation"><button onClick={() => navigate("/tracking")}><MapPin />Track service</button><button onClick={() => navigate("/dashboard")}><UserRound />My journeys</button></nav>
         </div>
       </header>

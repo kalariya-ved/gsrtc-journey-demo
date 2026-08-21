@@ -77,3 +77,11 @@ Interaction verification confirms that adding a second available seat updates th
 The tracking view applies a denser civic service-desk hierarchy: inner pages have a thin authority utility band, strong RoutePulse Blue structural bands, formal update labels, and a branded blue route rail with official waypoint markers. Simulated data remains conspicuously labelled through a blue public-service notice; signal red is reserved for the active vehicle-seal ring and immediate intervention emphasis.
 
 Desktop verification confirms the branded tracking rail, formal service notice, compact control band, simulated status panel, and route-progress rail form a cohesive civic-service layout. Mobile verification confirms the controls stack into clear full-width actions and the route map, status panel, support contact, and route facts remain readable without horizontal overflow.
+
+## Style Decisions
+
+The tracking page is now treated as a **Journey Monitor** rather than an administrative dashboard: one dark route hero establishes context, one generous route canvas carries the primary attention, and supporting information sits in quiet white cards. Rounded corners are reserved for a small number of key interactive containers; component density is achieved through typography, grouping, and hierarchy instead of excess borders. The mock disclosure is explicit but restrained so it does not compete with the route itself.
+
+The final tracking treatment favours flat, rule-led civic materials around the hero. Roboto Condensed now dominates route names, controls, status headings, and operational labels. The RoutePulse wheel-and-route emblem repeats as a service seal on the vehicle and arrival status, while the red accent is reserved for the active vehicle ring and official arrival rule.
+
+Final verification confirms that the Journey Monitor keeps one clear primary route canvas, a compact status summary, and a direct service-data notice on desktop. The mobile view preserves this reading order by stacking the hero controls, route canvas, arrival card, timeline, and notice without horizontal overflow.

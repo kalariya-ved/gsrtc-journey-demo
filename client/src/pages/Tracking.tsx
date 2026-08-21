@@ -3,7 +3,7 @@
  * RoutePulse blue movement cues, compact status controls, and no implication of a real GSRTC feed.
  */
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
-import { BusFront, CheckCircle2, Clock3, MapPin, Navigation, Pause, Play, Radio, RefreshCw, Route, Signal, UserRound } from "lucide-react";
+import { ArrowRight, BusFront, CheckCircle2, Clock3, MapPin, Navigation, Pause, Play, Radio, RefreshCw, Route, Signal, UserRound } from "lucide-react";
 import { toast } from "sonner";
 import { BookingShell } from "@/components/BookingShell";
 
@@ -56,26 +56,31 @@ export default function Tracking() {
     toast.info("Mock tracking feed advanced to the next simulated update.");
   };
 
-  return <BookingShell step="ticket" eyebrow="Live service tracking" title={activeService.label}>
-    <div className="mock-disclosure"><Radio /><span><b>Demo service notice</b><small>All vehicle positions, ETAs, timestamps, and speeds below are simulated for the RoutePulse demo. They are not sourced from GSRTC.</small></span></div>
-    <div className="tracking-page-layout">
-      <section className="tracking-map-panel">
-        <div className="tracking-map-heading">
-          <div><span><Signal />Simulated route signal</span><h2>{activeService.route}</h2><p>Choose a service or play through simulated route updates. A real GPS feed requires an authorized operator integration.</p></div>
-          <div className="tracking-actions"><button onClick={() => setIsPlaying((current) => !current)} aria-pressed={isPlaying}>{isPlaying ? <Pause /> : <Play />}{isPlaying ? "Pause demo" : "Play demo"}</button><button onClick={refreshMock}><RefreshCw />Next update</button></div>
-        </div>
-        <div className="tracking-service-bar"><label>Tracked service<select value={serviceId} onChange={(event) => setServiceId(event.target.value)}>{mockServices.map((service) => <option key={service.id} value={service.id}>{service.label}</option>)}</select></label><div><span>Update cadence</span><b>Every 4.2 sec</b></div><div><span>Feed sequence</span><b>{snapshotIndex + 1} of {activeService.snapshots.length}</b></div></div>
-        <div className="tracking-map-frame mock-route-frame" style={trackingStyle}>
-          <div className="fallback-map-grid" />
-          <div className="mock-route-path"><i className="mock-route-origin" /><i className="mock-route-stop" /><i className="mock-route-destination" /></div>
-          <div className="mock-bus-marker"><img src={routePulseLogo} alt="" /><span>RP</span></div>
-          <span className="fallback-label origin-label">Ahmedabad<small>Departed</small></span><span className="fallback-label current-label mock-current-label">{snapshot.location}<small>{snapshot.status} · {snapshot.speed}</small></span><span className="fallback-label destination-label">Vadodara<small>ETA {snapshot.eta}</small></span>
-          <div className="fallback-map-stamp"><img src={routePulseLogo} alt="" /><span>Mock route<br />tracking preview</span></div>
-          <div className="mock-route-progress"><span>Simulated route progress</span><b>{snapshot.progress}%</b><i><em style={{ width: `${snapshot.progress}%` }} /></i></div>
-        </div>
+  return <BookingShell step="ticket" eyebrow="Live service tracking" title="Journey monitor">
+    <div className="tracking-v2">
+      <section className="v2-journey-hero">
+        <div className="v2-hero-top"><span><Radio />RoutePulse simulation service</span><span>Data source: demonstration only</span></div>
+        <div className="v2-hero-main"><div><p>Intercity route</p><h2>Ahmedabad <ArrowRight /> Vadodara</h2><small>{activeService.label} · {activeService.vehicle}</small></div><div className="v2-state-chip"><span>Current state</span><strong>{snapshot.status}</strong><small>Updated {snapshot.updateAge}</small></div></div>
+        <div className="v2-hero-controls"><label><span>Tracked service</span><select value={serviceId} onChange={(event) => setServiceId(event.target.value)}>{mockServices.map((service) => <option key={service.id} value={service.id}>{service.label}</option>)}</select></label><div className="v2-control-buttons"><button onClick={() => setIsPlaying((current) => !current)} aria-pressed={isPlaying}>{isPlaying ? <Pause /> : <Play />}{isPlaying ? "Pause" : "Resume"}</button><button onClick={refreshMock}><RefreshCw />Update</button></div><div className="v2-feed-summary"><span>Simulated feed</span><b>{snapshotIndex + 1} / {activeService.snapshots.length}</b><small>Every 4.2 sec</small></div></div>
       </section>
-      <aside className="tracking-status-panel" aria-live="polite"><div className="tracking-current"><BusFront /><div><span>Simulated service status</span><strong>{snapshot.status}</strong><small>Last simulated update: {snapshot.updateAge}</small></div></div><div className="eta-block"><span>Estimated arrival</span><strong>{snapshot.eta}</strong><small>{snapshot.remaining}</small></div><div className="tracking-stop-list"><h2>Route progress</h2>{activeService.stops.map((stop, index) => <div key={stop.name} className={index < snapshot.anchorIndex ? "stop is-complete" : index === snapshot.anchorIndex ? "stop is-current" : "stop"}><i>{index < snapshot.anchorIndex ? <CheckCircle2 /> : index === snapshot.anchorIndex ? <Navigation /> : <MapPin />}</i><span><b>{stop.name}</b><small>{index === snapshot.anchorIndex ? `${snapshot.status} · ${snapshot.location}` : stop.note}</small></span></div>)}</div><button onClick={() => toast.info("Driver and fleet contact details require a connected operations system.")} className="tracking-contact"><UserRound />Service support <span>1800 233 666666</span></button></aside>
+
+      <div className="v2-workspace">
+        <section className="v2-route-card">
+          <div className="v2-card-head"><div><span><Navigation />Journey movement</span><h2>{snapshot.location}</h2></div><div><strong>{snapshot.speed}</strong><small>Simulated speed</small></div></div>
+          <div className="v2-route-canvas" style={trackingStyle}>
+            <div className="v2-canvas-grid" />
+            <div className="v2-route-line"><i className="v2-origin-dot" /><i className="v2-stop-dot" /><i className="v2-destination-dot" /></div>
+            <div className="v2-bus-token"><img src={routePulseLogo} alt="" /><span>RP</span></div>
+            <div className="v2-location-label">{snapshot.location}<small>{snapshot.status}</small></div>
+            <div className="v2-point-label v2-from">Ahmedabad<small>Departed</small></div><div className="v2-point-label v2-via">{activeService.stops[1].name}<small>Service point</small></div><div className="v2-point-label v2-to">Vadodara<small>ETA {snapshot.eta}</small></div>
+            <div className="v2-progress-strip"><span><b>Route completion</b><small>{snapshot.progress}% travelled</small></span><i><em style={{ width: `${snapshot.progress}%` }} /></i></div>
+          </div>
+        </section>
+        <aside className="v2-live-panel" aria-live="polite"><div className="v2-arrival"><div className="v2-arrival-seal"><img src={routePulseLogo} alt="" /><span>RoutePulse<br />service seal</span></div><span>Estimated arrival</span><strong>{snapshot.eta}</strong><small>{snapshot.remaining}</small></div><div className="v2-route-summary"><div><BusFront /><span><b>Vehicle</b><small>{activeService.vehicle}</small></span></div><div><Clock3 /><span><b>Schedule</b><small>{activeService.schedule}</small></span></div></div><div className="v2-next-stop"><span>Next service point</span><b>{snapshot.anchorIndex === 2 ? "Vadodara · Arrival point" : activeService.stops[snapshot.anchorIndex + 1]?.name ?? "Vadodara"}</b><small>{snapshot.anchorIndex === 2 ? "Destination terminal" : "Route timing is simulated"}</small></div><button onClick={() => toast.info("Live driver contact requires a connected fleet provider.")}><UserRound />Contact service desk <ArrowRight /></button></aside>
+      </div>
+
+      <section className="v2-stop-card"><div className="v2-stop-card-head"><div><h2>Route timeline</h2><p>Scheduled journey points and current simulated movement.</p></div><span><Signal />Signal active</span></div><div className="v2-stop-timeline">{activeService.stops.map((stop, index) => <div key={stop.name} className={index < snapshot.anchorIndex ? "v2-stop is-complete" : index === snapshot.anchorIndex ? "v2-stop is-current" : "v2-stop"}><i>{index < snapshot.anchorIndex ? <CheckCircle2 /> : index === snapshot.anchorIndex ? <Navigation /> : <MapPin />}</i><span><b>{stop.name}</b><small>{index === snapshot.anchorIndex ? `${snapshot.status} · ${snapshot.location}` : stop.note}</small></span></div>)}</div></section>
+      <div className="v2-mock-notice"><Radio /><span><b>Service data notice — simulation</b><small>Positions, speeds, ETAs, and timeline changes are simulated. RoutePulse will show operator data only when an authorised provider is connected.</small></span></div>
     </div>
-    <div className="tracking-info-grid"><div><Route /><span><b>Service route</b><small>{activeService.route.replace(" → ", " → Anand Bypass → ")}</small></span></div><div><Clock3 /><span><b>Scheduled duration</b><small>{activeService.schedule}</small></span></div><div><BusFront /><span><b>Vehicle</b><small>{activeService.vehicle} · {activeService.id}</small></span></div></div>
   </BookingShell>;
 }

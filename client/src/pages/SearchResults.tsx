@@ -52,6 +52,12 @@ const services: Service[] = [
 ];
 
 const allDepartureBands = ["Morning", "Afternoon", "Evening", "Night"] as const;
+const allBusTypes = ["AC", "Non-AC"] as const;
+const fareBands = [
+  { id: "under-400", label: "Under ₹400", detail: "Budget services", min: 0, max: 399 },
+  { id: "400-500", label: "₹400 – ₹500", detail: "Standard fare", min: 400, max: 500 },
+  { id: "above-500", label: "Above ₹500", detail: "Premium services", min: 501, max: Infinity },
+] as const;
 
 function amenityIcon(label: string) {
   if (label.includes("Live")) return <MapPin aria-hidden="true" />;
@@ -69,7 +75,9 @@ export default function SearchResults() {
   const date = params.get("date") || new Date().toISOString().slice(0, 10);
   const passengers = Number(params.get("passengers") || "1");
   const [acOnly, setAcOnly] = useState(false);
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedBands, setSelectedBands] = useState<string[]>([]);
+  const [selectedFareBands, setSelectedFareBands] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<"recommended" | "price" | "departure">("recommended");
   const [openService, setOpenService] = useState<string | null>(null);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
@@ -77,17 +85,40 @@ export default function SearchResults() {
   const displayDate = new Intl.DateTimeFormat("en-IN", { weekday: "short", day: "numeric", month: "short", year: "numeric" }).format(new Date(`${date}T12:00:00`));
 
   const filteredServices = useMemo(() => {
-    const result = services.filter((service) => (!acOnly || service.type === "AC") && (selectedBands.length === 0 || selectedBands.includes(service.departureBand)));
+    const result = services.filter((service) => {
+      const matchesQuickAc = !acOnly || service.type === "AC";
+      const matchesBusType = selectedTypes.length === 0 || selectedTypes.includes(service.type);
+      const matchesDeparture = selectedBands.length === 0 || selectedBands.includes(service.departureBand);
+      const matchesFare = selectedFareBands.length === 0 || fareBands.some((band) => selectedFareBands.includes(band.id) && service.fare >= band.min && service.fare <= band.max);
+      return matchesQuickAc && matchesBusType && matchesDeparture && matchesFare;
+    });
     return [...result].sort((a, b) => {
       if (sortBy === "price") return a.fare - b.fare;
       if (sortBy === "departure") return a.departure.localeCompare(b.departure);
       return b.seats - a.seats;
     });
-  }, [acOnly, selectedBands, sortBy]);
+  }, [acOnly, selectedTypes, selectedBands, selectedFareBands, sortBy]);
 
   const toggleBand = (band: string) => {
     setSelectedBands((current) => current.includes(band) ? current.filter((item) => item !== band) : [...current, band]);
   };
+
+  const toggleType = (type: string) => {
+    setSelectedTypes((current) => current.includes(type) ? current.filter((item) => item !== type) : [...current, type]);
+  };
+
+  const toggleFareBand = (band: string) => {
+    setSelectedFareBands((current) => current.includes(band) ? current.filter((item) => item !== band) : [...current, band]);
+  };
+
+  const clearFilters = () => {
+    setAcOnly(false);
+    setSelectedTypes([]);
+    setSelectedBands([]);
+    setSelectedFareBands([]);
+  };
+
+  const activeFilterCount = Number(acOnly) + selectedTypes.length + selectedBands.length + selectedFareBands.length;
 
   return (
     <div className="results-page min-h-screen bg-[#f5f8fb]">
@@ -115,21 +146,25 @@ export default function SearchResults() {
             <div className="filter-heading"><div><Filter /><h2>Filters</h2></div><button className="mobile-filter-close" onClick={() => setIsFiltersOpen(false)} aria-label="Close filters"><X /></button></div>
             <button className={acOnly ? "filter-toggle is-selected" : "filter-toggle"} onClick={() => setAcOnly(!acOnly)}><span><Snowflake />AC services only</span><span className="toggle-switch"><i /></span></button>
             <div className="filter-divider" />
-            <fieldset className="departure-filter"><legend>Departure time</legend>{allDepartureBands.map((band) => <label key={band}><input type="checkbox" checked={selectedBands.includes(band)} onChange={() => toggleBand(band)} /><span className="custom-check">{selectedBands.includes(band) && <Check />}</span><span>{band}</span><small>{band === "Morning" ? "Before 12 PM" : band === "Afternoon" ? "12 PM – 5 PM" : band === "Evening" ? "5 PM – 9 PM" : "After 9 PM"}</small></label>)}</fieldset>
-            <button className="clear-filters" onClick={() => { setAcOnly(false); setSelectedBands([]); }}>Clear all filters</button>
+            <fieldset className="filter-group"><legend>Bus type</legend>{allBusTypes.map((type) => <label key={type}><input type="checkbox" checked={selectedTypes.includes(type)} onChange={() => toggleType(type)} /><span className="custom-check">{selectedTypes.includes(type) && <Check />}</span><span>{type}</span><small>{type === "AC" ? "Air-conditioned comfort" : "Value and standard services"}</small></label>)}</fieldset>
+            <div className="filter-divider" />
+            <fieldset className="filter-group"><legend>Departure time</legend>{allDepartureBands.map((band) => <label key={band}><input type="checkbox" checked={selectedBands.includes(band)} onChange={() => toggleBand(band)} /><span className="custom-check">{selectedBands.includes(band) && <Check />}</span><span>{band}</span><small>{band === "Morning" ? "Before 12 PM" : band === "Afternoon" ? "12 PM – 5 PM" : band === "Evening" ? "5 PM – 9 PM" : "After 9 PM"}</small></label>)}</fieldset>
+            <div className="filter-divider" />
+            <fieldset className="filter-group"><legend>Price range</legend>{fareBands.map((band) => <label key={band.id}><input type="checkbox" checked={selectedFareBands.includes(band.id)} onChange={() => toggleFareBand(band.id)} /><span className="custom-check">{selectedFareBands.includes(band.id) && <Check />}</span><span>{band.label}</span><small>{band.detail}</small></label>)}</fieldset>
+            <button className="clear-filters" disabled={activeFilterCount === 0} onClick={clearFilters}>Clear all filters</button>
           </aside>
 
           {isFiltersOpen && <button className="filter-overlay" onClick={() => setIsFiltersOpen(false)} aria-label="Close filter panel" />}
 
           <div className="service-results">
             <div className="results-toolbar">
-              <div><p>Available services</p><h1><strong>{filteredServices.length}</strong> buses found</h1></div>
+              <div><p>Available services {activeFilterCount > 0 && <span className="filter-active-summary">{activeFilterCount} filter{activeFilterCount === 1 ? "" : "s"} active</span>}</p><h1><strong>{filteredServices.length}</strong> buses found</h1></div>
               <div className="toolbar-actions"><button className="mobile-filter-button" onClick={() => setIsFiltersOpen(true)}><SlidersHorizontal />Filters</button><label className="sort-select"><span>Sort by</span><select value={sortBy} onChange={(event) => setSortBy(event.target.value as typeof sortBy)}><option value="recommended">Recommended</option><option value="price">Lowest fare</option><option value="departure">Earliest departure</option></select><ChevronDown /></label></div>
             </div>
-            <div className="service-notice"><BusFront /><span>Services include current schedules and seat availability. Fares shown are per passenger.</span></div>
+            <div className="service-notice"><BusFront /><span>Demo filters update the sample services below. Fares are shown per passenger.</span></div>
             <div className="service-list">
               {filteredServices.map((service) => <ServiceCard key={service.id} service={service} source={source} destination={destination} isOpen={openService === service.id} onToggle={() => setOpenService(openService === service.id ? null : service.id)} onSelect={() => navigate(`/bus-details?service=${encodeURIComponent(service.id)}&source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}&date=${encodeURIComponent(date)}&passengers=${encodeURIComponent(passengers)}`)} />)}
-              {filteredServices.length === 0 && <div className="empty-results"><BusFront /><h2>No services match these filters</h2><p>Clear one or more filters to see available journeys for this date.</p><button onClick={() => { setAcOnly(false); setSelectedBands([]); }}>Reset filters</button></div>}
+              {filteredServices.length === 0 && <div className="empty-results"><BusFront /><h2>No services match these filters</h2><p>Clear one or more filters to see available journeys for this date.</p><button onClick={clearFilters}>Reset filters</button></div>}
             </div>
           </div>
         </section>

@@ -65,3 +65,7 @@ Results and listing pages retain the Civic Transit Portal character through flat
 The refined desktop search-results screen verifies this system in practice: the reinforced RoutePulse lockup, blue summary band, filter panel, section rule, service rows, amenity rails, and boxed route-status metadata read as a consistent formal service surface. Filter labels are aligned and readable, and red is limited to the seat-selection action.
 
 The multi-page traveller journey extends this same system through compact blue progress rails, square service symbols, strong RoutePulse Blue panel anchors, boxed operational metadata, and restrained red primary actions. Ticket and account surfaces reuse the wheel-and-route emblem as an official document/service seal. The live-tracking surface provides a deterministic labelled route graphic whenever a live map is not available, preserving a useful visual tracking context while clearly identifying the location as a demo.
+
+The demo search filters use the same formal service-desk treatment. Verification confirms that selecting the AC bus-type filter changes the visible service count from five to three and exposes an active-filter count beside the results label.
+
+Combining the AC type filter with the ₹400–₹500 fare band further narrows the sample list to the single ₹489 RoutePulse Express service. The mobile results layout preserves the compact toolbar and Filter entry point without horizontal overflow; the same filter grouping is available through the responsive drawer.

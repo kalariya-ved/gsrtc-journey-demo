@@ -69,3 +69,7 @@ The multi-page traveller journey extends this same system through compact blue p
 The demo search filters use the same formal service-desk treatment. Verification confirms that selecting the AC bus-type filter changes the visible service count from five to three and exposes an active-filter count beside the results label.
 
 Combining the AC type filter with the ₹400–₹500 fare band further narrows the sample list to the single ₹489 RoutePulse Express service. The mobile results layout preserves the compact toolbar and Filter entry point without horizontal overflow; the same filter grouping is available through the responsive drawer.
+
+The results-page Select seats action now opens an in-page dummy coach modal. It presents available, selected, booked, and reserved states, a preselected available seat, per-service boarding and dropping fields, and an explicitly labelled demo continuation action without implying a real reservation.
+
+Interaction verification confirms that adding a second available seat updates the selected-seat summary and fare total from ₹338 to ₹676. Continuing transfers the selected seat identifiers into the passenger-details route, where they remain visible in the booking summary.

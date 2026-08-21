@@ -24,10 +24,11 @@ import {
   X,
 } from "lucide-react";
 import { toast } from "sonner";
+import { ResultSeatModal } from "@/components/ResultSeatModal";
 
 const routePulseLogo = "/manus-storage/routepulse-logo_c9f17078.png";
 
-type Service = {
+export type Service = {
   id: string;
   operator: string;
   service: string;
@@ -81,6 +82,7 @@ export default function SearchResults() {
   const [sortBy, setSortBy] = useState<"recommended" | "price" | "departure">("recommended");
   const [openService, setOpenService] = useState<string | null>(null);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
 
   const displayDate = new Intl.DateTimeFormat("en-IN", { weekday: "short", day: "numeric", month: "short", year: "numeric" }).format(new Date(`${date}T12:00:00`));
 
@@ -163,12 +165,13 @@ export default function SearchResults() {
             </div>
             <div className="service-notice"><BusFront /><span>Demo filters update the sample services below. Fares are shown per passenger.</span></div>
             <div className="service-list">
-              {filteredServices.map((service) => <ServiceCard key={service.id} service={service} source={source} destination={destination} isOpen={openService === service.id} onToggle={() => setOpenService(openService === service.id ? null : service.id)} onSelect={() => navigate(`/bus-details?service=${encodeURIComponent(service.id)}&source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}&date=${encodeURIComponent(date)}&passengers=${encodeURIComponent(passengers)}`)} />)}
+              {filteredServices.map((service) => <ServiceCard key={service.id} service={service} source={source} destination={destination} isOpen={openService === service.id} onToggle={() => setOpenService(openService === service.id ? null : service.id)} onSelect={() => setSelectedService(service)} />)}
               {filteredServices.length === 0 && <div className="empty-results"><BusFront /><h2>No services match these filters</h2><p>Clear one or more filters to see available journeys for this date.</p><button onClick={clearFilters}>Reset filters</button></div>}
             </div>
           </div>
         </section>
       </main>
+      {selectedService && <ResultSeatModal service={selectedService} onClose={() => setSelectedService(null)} onContinue={(seats) => navigate(`/passengers?service=${encodeURIComponent(selectedService.id)}&source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}&date=${encodeURIComponent(date)}&passengers=${encodeURIComponent(passengers)}&seats=${encodeURIComponent(seats.join(","))}`)} />}
     </div>
   );
 }

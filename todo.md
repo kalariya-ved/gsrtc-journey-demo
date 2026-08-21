@@ -25,4 +25,11 @@
 - [x] Define selectable bus types, departure windows, and fare bands for the existing demo services.
 - [x] Implement matching filter controls, active-filter feedback, and reset behavior.
 - [x] Verify the filter experience across desktop and mobile layouts.
-- [ ] Save the updated search experience as a delivery checkpoint.
+- [x] Save the updated search experience as a delivery checkpoint.
+
+# Results-Page Seat Selection Modal
+
+- [x] Define dummy seat states, price calculation, and modal confirmation behavior.
+- [x] Implement the bus-card seat modal with interactive availability states.
+- [x] Verify the modal across desktop and mobile layouts.
+- [ ] Save the seat-modal enhancement as a delivery checkpoint.

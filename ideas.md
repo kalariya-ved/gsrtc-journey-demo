@@ -96,4 +96,6 @@ The ticket preview now follows the same document-system rules as the booking pag
 
 The booking form now provides compact city-and-station suggestions with mouse and keyboard selection semantics. Ticket output is explicitly sandbox-labeled: printing uses the browser print workflow, PDF downloads are generated locally as a preview document, and SMS creates a shareable message draft without sending any message. Desktop and mobile verification confirms that the form, document facts, disclosure, and output controls remain readable without horizontal overflow.
 
+The ticket action row now includes an accessible Share Ticket control that reveals clear WhatsApp and email choices. Both share payloads retain the sandbox-not-valid-for-travel notice, ensuring that external sharing never represents a genuine GSRTC reservation. The control remains balanced within both desktop and mobile ticket action layouts.
+
 Final verification confirms that the Journey Monitor keeps one clear primary route canvas, a compact status summary, and a direct service-data notice on desktop. The mobile view preserves this reading order by stacking the hero controls, route canvas, arrival card, timeline, and notice without horizontal overflow.

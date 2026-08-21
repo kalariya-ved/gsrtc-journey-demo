@@ -1364,3 +1364,20 @@
     .ticket-document-lockup > img { width: 36px; height: 36px; }
   }
 }
+
+@layer components {
+  /* Ticket sharing: compact action-menu treatment with explicit sandbox context and clear external-service handoffs. */
+  .ticket-share-wrap { position: relative; }
+  .ticket-share-wrap > button { width: 100%; }
+  .ticket-share-menu { position: absolute; z-index: 30; right: 0; bottom: calc(100% + .42rem); width: min(255px, calc(100vw - 2rem)); border: 1px solid #8cafc6; border-top: 4px solid #075f9b; background: #fff; box-shadow: 0 10px 24px rgba(11, 55, 84, .18); padding: .62rem; }
+  .ticket-share-menu > div { display: flex; align-items: center; justify-content: space-between; gap: .5rem; color: #075f9b; font-family: "Roboto Condensed", sans-serif; font-size: .77rem; font-weight: 800; }
+  .ticket-share-menu > div button { display: grid; place-items: center; color: #55778f; }
+  .ticket-share-menu > div svg { width: .9rem; }
+  .ticket-share-menu p { margin: .42rem 0 .58rem; color: #6e8799; font-size: .57rem; line-height: 1.4; }
+  .ticket-share-menu > button { width: 100%; display: flex; align-items: center; gap: .35rem; margin-top: .34rem; border: 1px solid #c2d3df; background: #f6fbfe; color: #174d70; padding: .55rem; font-size: .63rem; font-weight: 800; text-align: left; }
+  .ticket-share-menu > button:hover { border-color: #7eb3d3; background: #e9f6fd; color: #075f9b; }
+  .ticket-share-menu > button svg { width: .9rem; color: #075f9b; }
+  @media (max-width: 760px) {
+    .ticket-share-menu { right: auto; left: 0; }
+  }
+}

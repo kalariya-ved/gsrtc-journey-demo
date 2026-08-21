@@ -79,4 +79,11 @@
 - [x] Implement source and destination autocomplete in the main booking form.
 - [x] Enable demo ticket print, PDF download, and SMS-share actions with clear disclosure.
 - [x] Verify autocomplete, ticket outputs, and responsive layouts.
-- [ ] Save the enhancement as a delivery checkpoint.
+- [x] Save the enhancement as a delivery checkpoint.
+
+# Ticket Sharing Enhancement
+
+- [x] Define sandbox-safe WhatsApp and email share payloads for the journey preview.
+- [x] Add a Share Ticket menu with WhatsApp and email options to the confirmation page.
+- [x] Verify sharing controls and responsive ticket layout.
+- [ ] Save the ticket-sharing enhancement as a delivery checkpoint.

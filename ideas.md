@@ -102,4 +102,6 @@ The location selector now commits a source or destination option on pointer inte
 
 The autocomplete list is now explicitly excluded from the generic booking-field flex rule. Each station selector is a contained block with its own absolute, scrollable suggestion surface and grid-based option rows, preventing option content from inheriting form-field dimensions or overlapping the source/destination controls. Desktop and mobile screenshots confirm the base booking grid remains clean after the containment fix.
 
+Autocomplete suggestions now render typed, case-insensitive matches within city names and station details as a high-contrast warm marker. The marker shifts to a blue state when an option is highlighted by keyboard or hover, preserving clear selection focus while improving scan speed. The booking interface remains stable at both desktop and mobile breakpoints.
+
 Final verification confirms that the Journey Monitor keeps one clear primary route canvas, a compact status summary, and a direct service-data notice on desktop. The mobile view preserves this reading order by stacking the hero controls, route canvas, arrival card, timeline, and notice without horizontal overflow.

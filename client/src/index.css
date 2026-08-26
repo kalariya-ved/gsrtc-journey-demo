@@ -1316,6 +1316,8 @@
   .location-suggestions button span { display: grid; gap: .08rem; min-width: 0; }
   .location-suggestions button b { color: #174b70; font-family: "Roboto Condensed", sans-serif; font-size: .78rem; font-weight: 800; }
   .location-suggestions button small { color: #788f9f; font-size: .55rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .location-suggestions mark { border-radius: 2px; background: #ffe7a8; color: #0c4f7c; padding: 0 .08em; font-weight: 900; }
+  .location-suggestions button.is-active mark, .location-suggestions button:hover mark { background: #bfe6fb; color: #064f82; }
   .location-suggestions button em { border-left: 1px solid #c8d9e5; color: #0a63a0; padding-left: .45rem; font-family: "Roboto Condensed", sans-serif; font-size: .62rem; font-style: normal; font-weight: 800; }
   .location-suggestions p { padding: .7rem; color: #708799; font-size: .63rem; }
   .ticket-action-disclosure { display: flex; align-items: flex-start; gap: .36rem; margin-top: .85rem; border-left: 4px solid #075f9b; background: #eaf5fd; padding: .58rem .68rem; color: #51758f; font-size: .62rem; line-height: 1.4; }

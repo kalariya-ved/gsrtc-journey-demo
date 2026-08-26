@@ -100,4 +100,11 @@
 - [x] Identify the overlapping station-suggestion layout behavior.
 - [x] Correct the source and destination suggestion containers and option sizing.
 - [x] Verify contained autocomplete layouts on desktop and mobile.
-- [ ] Save the layout fix as a delivery checkpoint.
+- [x] Save the layout fix as a delivery checkpoint.
+
+# Autocomplete Match Highlighting
+
+- [x] Define case-insensitive highlight rendering for city and station names.
+- [x] Add visual emphasis to matching suggestion text without altering option selection behavior.
+- [x] Verify highlighted suggestions on desktop and mobile.
+- [ ] Save the autocomplete highlight enhancement as a delivery checkpoint.

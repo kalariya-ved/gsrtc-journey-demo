@@ -4,6 +4,7 @@
  */
 import { useState } from "react";
 import { Armchair, ArrowRight, BusFront, Check, MapPin, TicketCheck, UserRound, X } from "lucide-react";
+import { toast } from "sonner";
 import type { Service } from "@/pages/SearchResults";
 
 const seatRows: Array<Array<string | null>> = [
@@ -17,12 +18,17 @@ const seatRows: Array<Array<string | null>> = [
 const bookedSeats = new Set(["A1", "A4", "B3", "C2", "D1", "E4"]);
 const reservedSeats = new Set(["B4", "D3"]);
 
-export function ResultSeatModal({ service, onClose, onContinue }: { service: Service; onClose: () => void; onContinue: (seats: string[]) => void }) {
+export function ResultSeatModal({ service, maxSeats, onClose, onContinue }: { service: Service; maxSeats: number; onClose: () => void; onContinue: (seats: string[]) => void }) {
   const [selectedSeats, setSelectedSeats] = useState<string[]>(["B2"]);
+  const passengerCount = Math.max(1, Math.min(maxSeats || 1, service.seats));
   const totalFare = selectedSeats.length * service.fare;
 
   const toggleSeat = (seat: string) => {
     if (bookedSeats.has(seat) || reservedSeats.has(seat)) return;
+    if (!selectedSeats.includes(seat) && selectedSeats.length >= passengerCount) {
+      toast.error(`You selected ${passengerCount} passenger${passengerCount === 1 ? "" : "s"}. Remove a seat before choosing another.`);
+      return;
+    }
     setSelectedSeats((current) => current.includes(seat) ? current.filter((item) => item !== seat) : [...current, seat]);
   };
 
@@ -30,7 +36,7 @@ export function ResultSeatModal({ service, onClose, onContinue }: { service: Ser
     <div className="results-seat-modal-backdrop" role="presentation" onMouseDown={onClose}>
       <section className="results-seat-modal" role="dialog" aria-modal="true" aria-labelledby="results-seat-title" onMouseDown={(event) => event.stopPropagation()}>
         <div className="results-seat-modal-head">
-          <div><span><BusFront />Seat selection · {service.id}</span><h2 id="results-seat-title">{service.operator}</h2><p>{service.service} · {service.departure} – {service.arrival}</p></div>
+          <div><span><BusFront />Seat selection · {service.id}</span><h2 id="results-seat-title">{service.operator}</h2><p>Select exactly {passengerCount} seat{passengerCount === 1 ? "" : "s"} for {passengerCount} passenger{passengerCount === 1 ? "" : "s"} · {service.departure} – {service.arrival}</p></div>
           <button onClick={onClose} aria-label="Close seat selection"><X /></button>
         </div>
         <div className="results-seat-modal-body">
@@ -53,10 +59,10 @@ export function ResultSeatModal({ service, onClose, onContinue }: { service: Ser
           </section>
           <aside className="results-seat-summary">
             <div className="modal-service-chip"><BusFront /><span><b>{service.id}</b><small>{service.seats} seats remaining</small></span></div>
-            <div className="modal-selection-count"><span><UserRound />Selected seats</span><strong>{selectedSeats.length ? selectedSeats.join(", ") : "None"}</strong></div>
+            <div className="modal-selection-count"><span><UserRound />Selected seats · {selectedSeats.length} of {passengerCount}</span><strong>{selectedSeats.length ? selectedSeats.join(", ") : "None"}</strong></div>
             <div className="modal-fare"><span><TicketCheck />Fare summary</span><b>₹{service.fare} × {selectedSeats.length || 0}</b><strong>₹{totalFare}</strong></div>
-            <button disabled={!selectedSeats.length} onClick={() => onContinue(selectedSeats)} className="modal-continue-button">Continue as demo <ArrowRight /></button>
-            <p>This uses a dummy layout. No seat is held or booked until a connected reservation service is available.</p>
+            <button disabled={selectedSeats.length !== passengerCount} onClick={() => onContinue(selectedSeats)} className="modal-continue-button">Continue with {passengerCount} seat{passengerCount === 1 ? "" : "s"} <ArrowRight /></button>
+            <p>{selectedSeats.length === passengerCount ? "Seat count matches the passenger count." : `Choose ${passengerCount - selectedSeats.length} more seat${passengerCount - selectedSeats.length === 1 ? "" : "s"} to continue.`} This uses a dummy layout; no seat is held or booked.</p>
           </aside>
         </div>
       </section>

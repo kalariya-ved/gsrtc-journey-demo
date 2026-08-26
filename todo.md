@@ -155,3 +155,17 @@
 - [x] Integrate the managed map view with route rendering and a moving demo bus marker.
 - [x] Add responsive map controls, stop selection, and explicit simulated-data disclosure.
 - [x] Verify desktop and mobile map interactions and save a delivery checkpoint.
+
+# Passenger-Count Seat Limit Fix
+
+- [x] Enforce the search passenger count as the maximum seat count in all seat selectors.
+- [x] Give travellers clear feedback when their seat-selection limit is reached.
+- [ ] Verify one-passenger and multi-passenger selection handoff, then save a checkpoint.
+
+# Group Passenger Details and Shared Ticket Contact
+
+- [x] Require the selected seat count to exactly equal the searched passenger count before continuing.
+- [x] Render one validated traveller-details form for every booked seat.
+- [x] Collect one shared mobile number and email for ticket delivery instead of duplicate contacts per traveller.
+- [x] Carry group travellers and the shared ticket contact into review and ticket preview.
+- [x] Verify one, four, and five passenger flows, then save a checkpoint.

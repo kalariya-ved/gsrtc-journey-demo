@@ -171,7 +171,7 @@ export default function SearchResults() {
           </div>
         </section>
       </main>
-      {selectedService && <ResultSeatModal service={selectedService} onClose={() => setSelectedService(null)} onContinue={(seats) => navigate(`/passengers?service=${encodeURIComponent(selectedService.id)}&source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}&date=${encodeURIComponent(date)}&passengers=${encodeURIComponent(passengers)}&seats=${encodeURIComponent(seats.join(","))}`)} />}
+      {selectedService && <ResultSeatModal service={selectedService} maxSeats={passengers} onClose={() => setSelectedService(null)} onContinue={(seats) => navigate(`/passengers?service=${encodeURIComponent(selectedService.id)}&source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}&date=${encodeURIComponent(date)}&passengers=${encodeURIComponent(passengers)}&seats=${encodeURIComponent(seats.join(","))}`)} />}
     </div>
   );
 }

@@ -1,0 +1,3 @@
+# Printable PDF Ticket Validation
+
+The redesigned voucher was generated from the actual ticket page through the Download PDF action and saved as `gj-demo-82467-voucher-preview.pdf`. `pdfinfo` confirmed a single unencrypted A4 page. `pdftotext -layout` confirmed the booking details, route, service class, passenger rows, payment details, ticket contact, general instructions, and independent-demo notice. A rendered PNG inspection confirmed the hierarchy is legible, compact, monochrome-friendly, and visually aligned with the civic reservation-voucher direction. Standard jsPDF text was normalized to ASCII-safe currency and separators for reliable built-in-font output. The share helper unit test and type/production build checks passed.

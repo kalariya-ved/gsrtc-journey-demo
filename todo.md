@@ -145,9 +145,9 @@
 
 - [x] Establish a clearly disclosed GSRTC-inspired app identity and demo-data boundaries.
 - [x] Rebrand the booking and service-search interfaces for the new passenger app.
-- [ ] Rebrand journey documents, dashboard, and tracking surfaces consistently.
-- [ ] Verify responsive app flows and disclosure treatment across core pages.
-- [ ] Save the GSRTC-inspired passenger app checkpoint.
+- [x] Rebrand journey documents, dashboard, and tracking surfaces consistently.
+- [x] Verify responsive app flows and disclosure treatment across core pages.
+- [x] Save the GSRTC-inspired passenger app checkpoint.
 
 # Map-Led Journey Monitor
 
@@ -160,7 +160,7 @@
 
 - [x] Enforce the search passenger count as the maximum seat count in all seat selectors.
 - [x] Give travellers clear feedback when their seat-selection limit is reached.
-- [ ] Verify one-passenger and multi-passenger selection handoff, then save a checkpoint.
+- [x] Verify one-passenger and multi-passenger selection handoff, then save a checkpoint.
 
 # Group Passenger Details and Shared Ticket Contact
 
@@ -188,3 +188,10 @@
 - [x] Establish a clearer ticket-document hierarchy with route identity, booking status, and passenger summary.
 - [x] Redesign the ticket surface and output actions without removing SMS, WhatsApp, PDF, or print behavior.
 - [x] Verify desktop and mobile ticket readability, then save a checkpoint.
+
+# Printable PDF Ticket Redesign
+
+- [x] Replace the sparse PDF output with a structured reservation-voucher layout.
+- [x] Include booking, route, service, passenger, fare, contact, and instruction sections using live demo data.
+- [x] Preserve original independent branding and a prominent non-travel disclaimer.
+- [x] Validate the downloaded PDF and save a checkpoint.

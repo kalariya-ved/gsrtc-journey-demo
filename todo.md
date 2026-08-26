@@ -148,3 +148,10 @@
 - [ ] Rebrand journey documents, dashboard, and tracking surfaces consistently.
 - [ ] Verify responsive app flows and disclosure treatment across core pages.
 - [ ] Save the GSRTC-inspired passenger app checkpoint.
+
+# Map-Led Journey Monitor
+
+- [x] Define a Google Maps-style simulated navigation model with route, stop, and vehicle state.
+- [x] Integrate the managed map view with route rendering and a moving demo bus marker.
+- [x] Add responsive map controls, stop selection, and explicit simulated-data disclosure.
+- [x] Verify desktop and mobile map interactions and save a delivery checkpoint.

@@ -1071,6 +1071,33 @@
 
 @layer components {
   /* Booking Home v2: booking-first journey planner, strong dark route hero, crisp search card, and spacious civic route choices. */
+  /* Map-led Journey Monitor: Google Maps road context with a civic demo overlay and contained mobile controls. */
+  .tracking-map-wrap { position: relative; min-height: 355px; overflow: hidden; background: #e7f3fa; }
+  .tracking-google-map { height: 355px !important; }
+  .tracking-map-badge { position: absolute; z-index: 2; top: .75rem; left: .75rem; display: inline-flex; align-items: center; gap: .42rem; border: 1px solid #9eb8ca; background: rgba(255,255,255,.95); box-shadow: 0 4px 10px rgba(8,49,76,.16); padding: .45rem .55rem; color: #0b5f94; pointer-events: none; }
+  .tracking-map-badge svg { width: .9rem; height: .9rem; color: #b82117; }
+  .tracking-map-badge span { display: grid; gap: .04rem; }
+  .tracking-map-badge b { font-family: "Roboto Condensed", sans-serif; font-size: .66rem; letter-spacing: .035em; text-transform: uppercase; }
+  .tracking-map-badge small { color: #55788e; font-size: .52rem; font-weight: 700; }
+  .tracking-map-progress { position: absolute; z-index: 2; right: .75rem; bottom: .75rem; left: .75rem; display: grid; gap: .36rem; border: 1px solid #b2c7d6; background: rgba(255,255,255,.95); box-shadow: 0 3px 10px rgba(8,49,76,.12); padding: .52rem .62rem; pointer-events: none; }
+  .tracking-map-progress span { display: flex; align-items: center; justify-content: space-between; color: #638094; font-size: .58rem; }
+  .tracking-map-progress b { color: #0b669f; }
+  .tracking-map-progress i { display: block; height: 6px; overflow: hidden; border-radius: 99px; background: #d7e7ef; }
+  .tracking-map-progress em { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #0871af, #32b1e5); transition: width 850ms var(--ease-in-out); }
+  .tracking-map-fallback { position: absolute; z-index: 1; inset: 0; overflow: hidden; background: #dcecf1; }
+  .tracking-map-fallback-head { position: absolute; z-index: 2; top: 3.25rem; left: .75rem; display: flex; align-items: center; gap: .4rem; border-left: 3px solid #b82117; background: rgba(255,255,255,.94); box-shadow: 0 3px 8px rgba(8,49,76,.14); padding: .4rem .5rem; color: #0b5f94; }
+  .tracking-map-fallback-head svg { width: .9rem; height: .9rem; color: #b82117; }
+  .tracking-map-fallback-head span { display: grid; gap: .04rem; }
+  .tracking-map-fallback-head b { font-family: "Roboto Condensed", sans-serif; font-size: .66rem; letter-spacing: .035em; text-transform: uppercase; }
+  .tracking-map-fallback-head small { color: #55788e; font-size: .5rem; font-weight: 700; }
+  .tracking-map-fallback svg { width: 100%; height: 100%; display: block; }
+  .v2-control-buttons button svg { width: .86rem; }
+  @media (max-width: 760px) {
+    .tracking-map-wrap, .tracking-google-map { min-height: 320px; height: 320px !important; }
+    .tracking-map-badge { top: .55rem; left: .55rem; padding: .36rem .45rem; }
+    .tracking-map-badge small { display: none; }
+    .tracking-map-progress { right: .55rem; bottom: .55rem; left: .55rem; }
+  }
   .booking-home-v2 { background: #f4f8fb; color: #173a56; }
   .home-v2-header { position: relative; z-index: 20; background: #fff; border-bottom: 1px solid #c2d4df; }
   .home-v2-utility { min-height: 29px; background: #082f55; border-bottom: 2px solid #b82117; color: #dff1fb; }

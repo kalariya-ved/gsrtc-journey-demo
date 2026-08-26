@@ -1,5 +1,5 @@
 /**
- * Civic Transit Portal design: compact official service modal, square seat states, RoutePulse blue
+ * GSRTC Journey Demo design: compact sample-service modal, square seat states, civic blue
  * operational selection, and signal red reserved for the final continuation action.
  */
 import { useState } from "react";

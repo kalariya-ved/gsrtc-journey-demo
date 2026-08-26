@@ -107,4 +107,44 @@
 - [x] Define case-insensitive highlight rendering for city and station names.
 - [x] Add visual emphasis to matching suggestion text without altering option selection behavior.
 - [x] Verify highlighted suggestions on desktop and mobile.
-- [ ] Save the autocomplete highlight enhancement as a delivery checkpoint.
+- [x] Save the autocomplete highlight enhancement as a delivery checkpoint.
+
+# Real-World Transit Database Assessment
+
+- [x] Locate authoritative GSRTC station, route, timetable, and service-number data sources and permissions.
+- [x] Compare an authorised feed integration with a managed local reference database.
+- [x] Define the backend, database, and refresh requirements for approved real-world data.
+- [x] Present data-source and implementation options for user approval.
+
+# Authorised GSRTC Feed Integration
+
+- [ ] Collect official API, GTFS, or bulk-feed access details and permitted field scope.
+- [ ] Upgrade RoutePulse with secure backend and database capabilities.
+- [ ] Define import, validation, deduplication, and refresh rules for official transit data.
+- [ ] Connect approved real-world stations, routes, service numbers, and schedules to the user interface.
+- [ ] Verify data provenance, freshness metadata, and search results before delivery.
+
+# No-API Data Source Decision
+
+- [x] Identify lawful alternatives to a direct GSRTC API or feed.
+- [x] Obtain the user’s preferred licensed data source or approval for a limited demo scope.
+
+# Official Data-Access Request
+
+- [x] Specify required transit data fields, technical questions, and compliance commitments.
+- [x] Draft a send-ready GSRTC data-access request.
+
+# Firebase Connection Setup
+
+- [ ] Confirm a Firebase web app and Firestore or Realtime Database have been created in `new-gsrtc`.
+- [x] Collect the Firebase web configuration for the `new-gstrc` project.
+- [ ] Confirm the selected Firebase database product and approved security model.
+- [ ] Prepare RoutePulse for secure Firebase connectivity and validate a controlled database read/write.
+
+# GSRTC-Inspired Passenger App
+
+- [x] Establish a clearly disclosed GSRTC-inspired app identity and demo-data boundaries.
+- [x] Rebrand the booking and service-search interfaces for the new passenger app.
+- [ ] Rebrand journey documents, dashboard, and tracking surfaces consistently.
+- [ ] Verify responsive app flows and disclosure treatment across core pages.
+- [ ] Save the GSRTC-inspired passenger app checkpoint.

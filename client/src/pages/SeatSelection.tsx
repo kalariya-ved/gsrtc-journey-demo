@@ -12,7 +12,7 @@ export default function SeatSelection() {
   const [, navigate] = useLocation();
   const [selected, setSelected] = useState<string[]>(["A3"]);
   const params = useMemo(() => new URLSearchParams(window.location.search), []);
-  const queryBase = `service=${encodeURIComponent(params.get("service") || "RP-420")}&source=${encodeURIComponent(params.get("source") || "Ahmedabad")}&destination=${encodeURIComponent(params.get("destination") || "Vadodara")}&date=${encodeURIComponent(params.get("date") || "2026-08-23")}&passengers=${encodeURIComponent(params.get("passengers") || "1")}`;
+  const queryBase = `service=${encodeURIComponent(params.get("service") || "GJ-D420")}&source=${encodeURIComponent(params.get("source") || "Ahmedabad")}&destination=${encodeURIComponent(params.get("destination") || "Vadodara")}&date=${encodeURIComponent(params.get("date") || "2026-08-23")}&passengers=${encodeURIComponent(params.get("passengers") || "1")}`;
   const price = selected.length * 489;
   const toggleSeat = (seat: string) => { if (!occupied.has(seat) && !reserved.has(seat)) setSelected((current) => current.includes(seat) ? current.filter((item) => item !== seat) : [...current, seat]); };
   return <BookingShell step="seats" eyebrow="Seat selection" title="Choose your preferred seat">

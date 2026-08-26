@@ -1,5 +1,5 @@
 /**
- * Civic Transit Portal design: formal RoutePulse lockup, blue progress rail, compact operational
+ * GSRTC Journey Demo design: formal independent-demo lockup, blue progress rail, compact operational
  * navigation, rectangular panels, and red reserved exclusively for decisive traveller actions.
  */
 import type { ReactNode } from "react";
@@ -24,10 +24,10 @@ export function BookingShell({ step, title, eyebrow, children }: { step: Booking
 
   return (
     <div className="booking-page min-h-screen bg-[#f4f7fa]">
-      <div className="booking-utility-bar"><div className="civic-container booking-utility-content"><span>RoutePulse Transit Service Desk</span><span>Public intercity information system</span></div></div>
+      <div className="booking-utility-bar"><div className="civic-container booking-utility-content"><span>GSRTC Journey Demo · Passenger Service Desk</span><span>Independent intercity prototype</span></div></div>
       <header className="booking-header">
         <div className="civic-container booking-header-content">
-          <button onClick={() => navigate("/")} className="booking-brand"><img src={routePulseLogo} alt="" /><span><strong>RoutePulse Transit <i>Service Network</i></strong><small>Public Intercity Services</small></span></button>
+          <button onClick={() => navigate("/")} className="booking-brand"><img src={routePulseLogo} alt="" /><span><strong>GSRTC Journey <i>Demo</i></strong><small>Independent Prototype · Demo Data</small></span></button>
           <nav className="booking-header-nav" aria-label="Traveller navigation"><button onClick={() => navigate("/tracking")}><MapPin />Track service</button><button onClick={() => navigate("/dashboard")}><UserRound />My journeys</button></nav>
         </div>
       </header>
@@ -42,5 +42,5 @@ export function BookingShell({ step, title, eyebrow, children }: { step: Booking
 }
 
 export function JourneyMiniCard({ seats = "A3" }: { seats?: string }) {
-  return <aside className="journey-mini-card"><div className="mini-card-top"><BusFront /><span><b>RoutePulse Express</b><small>Volvo AC Seater · RP-420</small></span></div><div className="mini-route"><span>Ahmedabad<small>06:30</small></span><i /><span>Vadodara<small>12:20</small></span></div><div className="mini-meta"><span>Sun, 23 Aug 2026</span><span>Seat {seats}</span></div></aside>;
+  return <aside className="journey-mini-card"><div className="mini-card-top"><BusFront /><span><b>GSRTC Demo Express</b><small>Volvo AC Seater · GJ-D420</small></span></div><div className="mini-route"><span>Ahmedabad<small>06:30</small></span><i /><span>Vadodara<small>12:20</small></span></div><div className="mini-meta"><span>Sun, 23 Aug 2026</span><span>Seat {seats}</span></div></aside>;
 }

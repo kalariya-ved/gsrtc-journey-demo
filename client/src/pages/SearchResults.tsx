@@ -1,5 +1,5 @@
 /**
- * Civic Transit Portal design: RoutePulse blue service hierarchy, compact operational cards,
+ * GSRTC Journey Demo design: civic-blue service hierarchy, compact operational cards,
  * transport-status indicators, red fare actions, and mobile-first trip filtering controls.
  */
 import { useMemo, useState } from "react";
@@ -45,11 +45,11 @@ export type Service = {
 };
 
 const services: Service[] = [
-  { id: "RP-420", operator: "RoutePulse Express", service: "Volvo AC Seater", departure: "06:30", arrival: "12:20", duration: "5h 50m", seats: 23, fare: 489, type: "AC", departureBand: "Morning", tags: ["Live tracking", "USB charging", "Water bottle"], boarding: "Central Bus Terminal · Bay 12", dropping: "Main Transit Depot · Platform 4" },
-  { id: "RP-716", operator: "CivicLine Connect", service: "AC Sleeper", departure: "09:15", arrival: "15:35", duration: "6h 20m", seats: 9, fare: 615, type: "AC", departureBand: "Morning", tags: ["Sleeper", "Blanket", "Live tracking"], boarding: "Railway Circle · Gate 3", dropping: "City Centre Bus Stand · Gate 1" },
-  { id: "RP-242", operator: "RoutePulse Citylink", service: "Deluxe Non-AC Seater", departure: "13:10", arrival: "19:35", duration: "6h 25m", seats: 31, fare: 338, type: "Non-AC", departureBand: "Afternoon", tags: ["Comfort seats", "Rest stop", "Budget fare"], boarding: "Civil Hospital Stop", dropping: "Old Market Terminus" },
-  { id: "RP-887", operator: "GreenRoute Electric", service: "Electric AC Coach", departure: "17:45", arrival: "23:25", duration: "5h 40m", seats: 17, fare: 532, type: "AC", departureBand: "Evening", tags: ["Electric coach", "Quiet ride", "USB charging"], boarding: "ISBT · Electric Bay 2", dropping: "University Junction" },
-  { id: "RP-390", operator: "Nightway Transit", service: "Semi Sleeper", departure: "22:30", arrival: "05:00", duration: "6h 30m", seats: 12, fare: 448, type: "Non-AC", departureBand: "Night", tags: ["Night service", "Reading light", "Live tracking"], boarding: "Central Bus Terminal · Bay 8", dropping: "Main Transit Depot · Platform 2" },
+  { id: "GJ-D420", operator: "GSRTC Demo Express", service: "Volvo AC Seater", departure: "06:30", arrival: "12:20", duration: "5h 50m", seats: 23, fare: 489, type: "AC", departureBand: "Morning", tags: ["Mock tracking", "USB charging", "Water bottle"], boarding: "Central Bus Terminal · Bay 12", dropping: "Main Transit Depot · Platform 4" },
+  { id: "GJ-D716", operator: "Gujarat Demo Connect", service: "AC Sleeper", departure: "09:15", arrival: "15:35", duration: "6h 20m", seats: 9, fare: 615, type: "AC", departureBand: "Morning", tags: ["Sleeper", "Blanket", "Mock tracking"], boarding: "Railway Circle · Gate 3", dropping: "City Centre Bus Stand · Gate 1" },
+  { id: "GJ-D242", operator: "GSRTC Demo Citylink", service: "Deluxe Non-AC Seater", departure: "13:10", arrival: "19:35", duration: "6h 25m", seats: 31, fare: 338, type: "Non-AC", departureBand: "Afternoon", tags: ["Comfort seats", "Rest stop", "Budget fare"], boarding: "Civil Hospital Stop", dropping: "Old Market Terminus" },
+  { id: "GJ-D887", operator: "Gujarat Demo Electric", service: "Electric AC Coach", departure: "17:45", arrival: "23:25", duration: "5h 40m", seats: 17, fare: 532, type: "AC", departureBand: "Evening", tags: ["Electric coach", "Quiet ride", "USB charging"], boarding: "ISBT · Electric Bay 2", dropping: "University Junction" },
+  { id: "GJ-D390", operator: "Gujarat Demo Nightline", service: "Semi Sleeper", departure: "22:30", arrival: "05:00", duration: "6h 30m", seats: 12, fare: 448, type: "Non-AC", departureBand: "Night", tags: ["Night service", "Reading light", "Mock tracking"], boarding: "Central Bus Terminal · Bay 8", dropping: "Main Transit Depot · Platform 2" },
 ];
 
 const allDepartureBands = ["Morning", "Afternoon", "Evening", "Night"] as const;
@@ -126,7 +126,7 @@ export default function SearchResults() {
     <div className="results-page min-h-screen bg-[#f5f8fb]">
       <header className="results-header">
         <div className="civic-container results-header-content">
-          <button onClick={() => navigate("/")} className="results-brand" aria-label="Return to RoutePulse home"><img src={routePulseLogo} alt="" /><span><strong>RoutePulse Transit</strong><small>Public Intercity Services</small></span></button>
+          <button onClick={() => navigate("/")} className="results-brand" aria-label="Return to GSRTC Journey Demo home"><img src={routePulseLogo} alt="" /><span><strong>GSRTC Journey Demo</strong><small>Independent Prototype · Demo Data</small></span></button>
           <div className="results-header-support"><span>Need help?</span><a href="tel:18002336666">1800 233 666666</a></div>
         </div>
       </header>
@@ -163,7 +163,7 @@ export default function SearchResults() {
               <div><p>Available services {activeFilterCount > 0 && <span className="filter-active-summary">{activeFilterCount} filter{activeFilterCount === 1 ? "" : "s"} active</span>}</p><h1><strong>{filteredServices.length}</strong> buses found</h1></div>
               <div className="toolbar-actions"><button className="mobile-filter-button" onClick={() => setIsFiltersOpen(true)}><SlidersHorizontal />Filters</button><label className="sort-select"><span>Sort by</span><select value={sortBy} onChange={(event) => setSortBy(event.target.value as typeof sortBy)}><option value="recommended">Recommended</option><option value="price">Lowest fare</option><option value="departure">Earliest departure</option></select><ChevronDown /></label></div>
             </div>
-            <div className="service-notice"><BusFront /><span>Demo filters update the sample services below. Fares are shown per passenger.</span></div>
+            <div className="service-notice"><BusFront /><span><b>GJ Demo corridor rail.</b> Independent demo data: filters update sample services and fares are shown per passenger.</span></div>
             <div className="service-list">
               {filteredServices.map((service) => <ServiceCard key={service.id} service={service} source={source} destination={destination} isOpen={openService === service.id} onToggle={() => setOpenService(openService === service.id ? null : service.id)} onSelect={() => setSelectedService(service)} />)}
               {filteredServices.length === 0 && <div className="empty-results"><BusFront /><h2>No services match these filters</h2><p>Clear one or more filters to see available journeys for this date.</p><button onClick={clearFilters}>Reset filters</button></div>}

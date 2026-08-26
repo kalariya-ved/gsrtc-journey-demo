@@ -105,3 +105,13 @@ The autocomplete list is now explicitly excluded from the generic booking-field 
 Autocomplete suggestions now render typed, case-insensitive matches within city names and station details as a high-contrast warm marker. The marker shifts to a blue state when an option is highlighted by keyboard or hover, preserving clear selection focus while improving scan speed. The booking interface remains stable at both desktop and mobile breakpoints.
 
 Final verification confirms that the Journey Monitor keeps one clear primary route canvas, a compact status summary, and a direct service-data notice on desktop. The mobile view preserves this reading order by stacking the hero controls, route canvas, arrival card, timeline, and notice without horizontal overflow.
+
+## Active GSRTC-Inspired Identity
+
+The active identity is **GSRTC Journey Demo**, an **independent GSRTC-inspired passenger-app prototype**. It adopts a practical, task-first civic-transit language—deep service blue, signal-red primary actions, Roboto Condensed operational headings, Noto Sans body copy, structured booking rails, and rectangular information surfaces—without using an official GSRTC logo, official mark, or official source data.
+
+The original wheel-and-route symbol remains an independent app mark. Every material journey surface must explicitly distinguish **sample** services, illustrative fares, simulated tracking, and non-travel ticket output from a real operator service. The persistent brand promise is: **“An independent journey-planning prototype for Gujarati intercity travel, designed for clear booking decisions before authorised operator data is connected.”** Its personality is **practical, transparent, and civic-minded**.
+
+Headlines should be factual and bounded, such as “Scheduled services. Seat selection. Journey ready.” and “Independent demo data: compare sample departures.” Calls to action use “Search sample services,” “Choose sample seats,” and “Generate booking preview,” never language that implies an actual ticket, payment, reservation, official affiliation, or live GSRTC feed.
+
+The compact lockup follows the civic-wordmark rule: **GSRTC Journey** is paired with a visible **Demo** tag and an adjacent **Independent Prototype · Demo Data** descriptor. Search results reinforce the shared route-rail language through a labelled GJ Demo corridor notice, while the Journey Monitor uses only simulated, sample, and demo-feed framing.

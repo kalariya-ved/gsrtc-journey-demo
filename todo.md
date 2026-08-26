@@ -175,3 +175,16 @@
 - [x] Add clearly labelled SMS and WhatsApp actions for sharing the passenger ticket preview.
 - [x] Add Google Pay, PhonePe, and BHIM selections to the UPI payment preview without processing a transaction.
 - [x] Validate shared preview payloads, payment disclosure, and responsive action layouts.
+
+# Razorpay Test-Mode Integration
+
+- [ ] Add secure Razorpay test credentials and document test/live settlement boundaries.
+- [ ] Create server-side order creation, signature verification, and webhook-ready status handling.
+- [ ] Connect the payment page to Razorpay Checkout and supported UPI flows.
+- [ ] Validate sandbox success, failure, cancellation, and duplicate-webhook handling before checkpoint.
+
+# Ticket UI Redesign
+
+- [ ] Establish a clearer ticket-document hierarchy with route identity, booking status, and passenger summary.
+- [ ] Redesign the ticket surface and output actions without removing SMS, WhatsApp, PDF, or print behavior.
+- [ ] Verify desktop and mobile ticket readability, then save a checkpoint.

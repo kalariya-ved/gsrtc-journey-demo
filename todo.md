@@ -185,6 +185,6 @@
 
 # Ticket UI Redesign
 
-- [ ] Establish a clearer ticket-document hierarchy with route identity, booking status, and passenger summary.
-- [ ] Redesign the ticket surface and output actions without removing SMS, WhatsApp, PDF, or print behavior.
-- [ ] Verify desktop and mobile ticket readability, then save a checkpoint.
+- [x] Establish a clearer ticket-document hierarchy with route identity, booking status, and passenger summary.
+- [x] Redesign the ticket surface and output actions without removing SMS, WhatsApp, PDF, or print behavior.
+- [x] Verify desktop and mobile ticket readability, then save a checkpoint.

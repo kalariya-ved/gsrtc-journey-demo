@@ -541,6 +541,23 @@
   .review-price-card > p { display: flex; align-items: center; justify-content: center; gap: .28rem; }
   .review-price-card > p svg { width: .85rem; color: #0a68a3; }
   .payment-panel { padding: 1rem; }
+  /* Civic payment ledger: route and service reference frame all preview methods as transit-document controls. */
+  .payment-ledger { border: 1px solid #9fb9ca; border-top: 4px solid #064e8b; background: #f5faff; }
+  .payment-ledger-head { display: flex; align-items: center; gap: .45rem; padding: .55rem .65rem; border-bottom: 1px solid #bdd0dd; background: #e9f4fa; }
+  .payment-ledger-head > svg { width: 1.2rem; height: 1.2rem; color: #fff; background: #064e8b; padding: .2rem; }
+  .payment-ledger-head span { display: grid; gap: .06rem; }
+  .payment-ledger-head b { color: #064e8b; font-family: "Roboto Condensed", sans-serif; font-size: .76rem; font-weight: 800; text-transform: uppercase; letter-spacing: .035em; }
+  .payment-ledger-head small { color: #638197; font-size: .55rem; font-weight: 700; }
+  .payment-ledger-head em { margin-left: auto; border: 1px solid #d9aaa2; background: #fff5f2; color: #a64538; padding: .2rem .33rem; font-size: .51rem; font-style: normal; font-weight: 800; text-transform: uppercase; }
+  .payment-ledger-route { display: grid; grid-template-columns: 1fr 50px 1fr auto; align-items: center; gap: .45rem; padding: .65rem; }
+  .payment-ledger-route span { display: grid; gap: .08rem; }
+  .payment-ledger-route span:nth-of-type(2) { text-align: right; }
+  .payment-ledger-route b { color: #173f5d; font-family: "Roboto Condensed", sans-serif; font-size: .94rem; font-weight: 800; }
+  .payment-ledger-route small { color: #71869a; font-size: .53rem; font-weight: 700; }
+  .payment-ledger-route i { position: relative; display: grid; place-items: center; height: 2px; background: #8fb2ca; }
+  .payment-ledger-route i svg { position: absolute; width: 1.15rem; height: 1.15rem; color: #064e8b; background: #f5faff; padding: .12rem; }
+  .payment-ledger-route strong { border-left: 1px solid #bdd0dd; color: #075e9b; padding-left: .45rem; font-family: "Roboto Condensed", sans-serif; font-size: .68rem; font-weight: 800; }
+  .payment-ledger + .sandbox-banner { margin-top: .8rem; }
   .sandbox-banner { border-left-color: #bf3a2b; background: #fff5f2; }
   .sandbox-banner svg { color: #b33b2e; }
   .sandbox-banner b { color: #a1362b; }
@@ -553,6 +570,26 @@
   .payment-method.is-selected { border-color: #075f9c; background: #eaf5fd; color: #064e8b; }
   .payment-method.is-selected > i { border: 4px solid #075f9c; }
   .payment-input-preview { display: grid; gap: .45rem; margin-top: 1rem; padding: .85rem; background: #f4f9fc; border: 1px solid #cadbe6; }
+  /* UPI preview: named app choices communicate a familiar payment pattern without opening a payment intent. */
+  .upi-app-selector { margin-top: 1rem; border: 1px solid #b9cede; background: #f8fbfd; padding: .8rem; }
+  .upi-app-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: .7rem; }
+  .upi-app-heading h2 { color: #064e8b; font-family: "Roboto Condensed", sans-serif; font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; }
+  .upi-app-heading p { max-width: 500px; margin-top: .2rem; color: #71869a; font-size: .6rem; line-height: 1.45; }
+  .upi-app-heading > span { border: 1px solid #d9aaa2; background: #fff5f2; color: #a64538; padding: .22rem .38rem; font-size: .55rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; }
+  .upi-app-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .55rem; margin-top: .7rem; }
+  .upi-app-card { display: grid; justify-items: start; gap: .16rem; min-height: 92px; border: 1px solid #c1d3df; background: #fff; padding: .62rem; color: #31526e; text-align: left; }
+  .upi-app-card i { display: grid; place-items: center; width: 27px; height: 27px; border-radius: 50%; background: #eaf3f8; color: #075f9c; font-family: "Roboto Condensed", sans-serif; font-size: .82rem; font-style: normal; font-weight: 800; }
+  .upi-app-card span { color: #244a69; font-size: .68rem; font-weight: 800; }
+  .upi-app-card small { color: #748a9d; font-size: .55rem; }
+  .upi-app-card.gpay i { background: #e8f0fe; color: #1a73e8; }
+  .upi-app-card.phonepe i { background: #f1e9fb; color: #5f259f; }
+  .upi-app-card.bhim i { background: #e8f5ed; color: #118545; }
+  .upi-app-card.is-selected { border-color: #075f9c; background: #eaf5fd; box-shadow: inset 0 0 0 1px #075f9c; }
+  .upi-preview-note { display: flex; align-items: flex-start; gap: .42rem; margin-top: .65rem; border-left: 3px solid #075f9c; background: #eaf5fd; padding: .5rem .55rem; }
+  .upi-preview-note svg { width: 1rem; color: #075f9c; }
+  .upi-preview-note span { display: grid; gap: .1rem; }
+  .upi-preview-note b { color: #064e8b; font-size: .62rem; }
+  .upi-preview-note small { color: #638197; font-size: .56rem; line-height: 1.35; }
   .payment-input-preview input { color: #70899d; background: #edf3f7; }
   .payment-input-preview small { color: #728b9f; font-size: .58rem; }
   .payment-summary-card > p { display: flex; align-items: center; justify-content: center; gap: .28rem; }
@@ -594,8 +631,9 @@
   .ticket-verification small { max-width: 470px; color: #778d9e; font-size: .6rem; line-height: 1.45; }
   .ticket-qr { display: grid; justify-items: center; gap: .15rem; color: #075e9b; font-size: .55rem; font-weight: 800; }
   .ticket-qr svg { width: 2.7rem; height: 2.7rem; color: #173d5f; }
-  .ticket-actions { margin-top: 1rem; display: flex; justify-content: flex-end; flex-wrap: wrap; gap: .5rem; }
-  .ticket-actions button { display: inline-flex; align-items: center; gap: .3rem; border: 1px solid #a4bed0; background: #fff; color: #075e9b; padding: .58rem .68rem; font-size: .66rem; font-weight: 800; }
+  .ticket-actions { margin-top: 1rem; display: flex; justify-content: flex-end; flex-wrap: wrap; gap: .45rem; border-top: 3px solid #064e8b; background: #f4f9fc; padding: .65rem; }
+  .ticket-actions::before { content: "DEMO DOCUMENT OUTPUTS · NO TICKET IS ISSUED"; flex: 1 0 100%; color: #486d87; font-family: "Roboto Condensed", sans-serif; font-size: .58rem; font-weight: 800; letter-spacing: .045em; }
+  .ticket-actions button { display: inline-flex; align-items: center; gap: .3rem; border: 1px solid #9db8ca; background: #fff; color: #075e9b; padding: .56rem .64rem; font-family: "Roboto Condensed", sans-serif; font-size: .66rem; font-weight: 800; letter-spacing: .015em; }
   .ticket-actions svg { width: .85rem; }
   .ticket-actions .ticket-dashboard-action { border-color: #8d1c14; background: #b82117; color: #fff; }
   @media (max-width: 760px) {
@@ -630,6 +668,11 @@
     .coach-seat { min-height: 36px; font-size: .56rem; }
     .passenger-form-panel { padding: .85rem; }
     .form-grid, .contact-form-section .form-grid { grid-template-columns: 1fr; gap: .7rem; }
+    .upi-app-grid { grid-template-columns: 1fr; }
+    .upi-app-card { grid-template-columns: 27px 1fr; align-items: center; min-height: 0; }
+    .upi-app-card small { grid-column: 2; }
+    .payment-ledger-route { grid-template-columns: 1fr 36px 1fr; }
+    .payment-ledger-route strong { display: none; }
     .review-route, .ticket-route { grid-template-columns: 1fr 1fr; }
     .review-contact { grid-template-columns: 1fr; }
     .review-route i, .ticket-route i { grid-column: 1 / -1; grid-row: 2; }

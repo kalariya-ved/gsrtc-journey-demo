@@ -169,3 +169,9 @@
 - [x] Collect one shared mobile number and email for ticket delivery instead of duplicate contacts per traveller.
 - [x] Carry group travellers and the shared ticket contact into review and ticket preview.
 - [x] Verify one, four, and five passenger flows, then save a checkpoint.
+
+# Ticket Sharing and UPI App Preview
+
+- [x] Add clearly labelled SMS and WhatsApp actions for sharing the passenger ticket preview.
+- [x] Add Google Pay, PhonePe, and BHIM selections to the UPI payment preview without processing a transaction.
+- [x] Validate shared preview payloads, payment disclosure, and responsive action layouts.

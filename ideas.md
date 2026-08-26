@@ -115,3 +115,7 @@ The original wheel-and-route symbol remains an independent app mark. Every mater
 Headlines should be factual and bounded, such as “Scheduled services. Seat selection. Journey ready.” and “Independent demo data: compare sample departures.” Calls to action use “Search sample services,” “Choose sample seats,” and “Generate booking preview,” never language that implies an actual ticket, payment, reservation, official affiliation, or live GSRTC feed.
 
 The compact lockup follows the civic-wordmark rule: **GSRTC Journey** is paired with a visible **Demo** tag and an adjacent **Independent Prototype · Demo Data** descriptor. Search results reinforce the shared route-rail language through a labelled GJ Demo corridor notice, while the Journey Monitor uses only simulated, sample, and demo-feed framing.
+
+Payment previews use the same blue-ledger, route-reference, service-seal language as the ticket document. UPI, card, wallet, and banking choices are clearly sample service-desk controls, never a live checkout.
+
+Ticket output controls are presented as controlled demo document outputs and repeat the non-travel, no-reservation, no-money-collected boundary.

@@ -207,5 +207,11 @@
 # Public GitHub Export
 
 - [x] Audit the project for secrets, environment files, generated artifacts, and private local data before public export.
-- [ ] Create the public `kalariya-ved/gsrtc-journey-demo` repository and push the sanitized project.
-- [ ] Verify the public repository contents and record its URL.
+- [x] Create the public `kalariya-ved/gsrtc-journey-demo` repository and push the sanitized project.
+- [x] Verify the public repository contents and record its URL.
+
+# Public Repository Final Audit
+
+- [ ] Inspect the complete public tree for internal metadata, generated artifacts, screenshots, and local-only scripts.
+- [ ] Remove any unwanted public-export artifacts, document the repository URL, and push the cleanup.
+- [ ] Re-run secret and unwanted-file checks against the final public tree.

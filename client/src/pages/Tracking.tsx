@@ -10,7 +10,7 @@ import { MapView } from "@/components/Map";
 
 const routePulseLogo = "/manus-storage/routepulse-logo_c9f17078.png";
 
-type TrackingSnapshot = { progress: number; anchorIndex: number; status: string; location: string; eta: string; remaining: string; updateAge: string; speed: string };
+type TrackingSnapshot = { progress: number; anchorIndex: number; status: string; location: string; eta: string; remaining: string; updateAge: string; speed: string; routeState: "On corridor" | "Minor deviation" | "Recovered"; routeNotice: string };
 type TrackingService = { id: string; label: string; route: string; vehicle: string; schedule: string; stops: Array<{ name: string; note: string }>; snapshots: TrackingSnapshot[] };
 
 const mapPoints = {
@@ -23,18 +23,18 @@ const mapPoints = {
 const mockServices: TrackingService[] = [
   {
     id: "GJ-D420", label: "GSRTC Demo Express · GJ-D420", route: "Ahmedabad → Vadodara", vehicle: "Volvo AC Seater", schedule: "06:30 – 12:20", stops: [{ name: "Ahmedabad", note: "Sample departure · 06:30 AM" }, { name: "Anand Bypass", note: "Sample rest stop" }, { name: "Vadodara", note: "Sample arrival · 12:20 PM" }], snapshots: [
-      { progress: 28, anchorIndex: 1, status: "On route", location: "Near Kheda Junction", eta: "12:20 PM", remaining: "1 hr 35 min remaining", updateAge: "15 seconds ago", speed: "52 km/h" },
-      { progress: 47, anchorIndex: 1, status: "Approaching stop", location: "Approaching Anand Bypass", eta: "12:16 PM", remaining: "1 hr 12 min remaining", updateAge: "5 seconds ago", speed: "44 km/h" },
-      { progress: 66, anchorIndex: 1, status: "At rest stop", location: "Anand Bypass", eta: "12:24 PM", remaining: "1 hr 3 min remaining", updateAge: "Now", speed: "0 km/h" },
-      { progress: 82, anchorIndex: 2, status: "On final leg", location: "Near Nadiad", eta: "12:21 PM", remaining: "36 min remaining", updateAge: "9 seconds ago", speed: "55 km/h" },
+      { progress: 28, anchorIndex: 1, status: "On route", location: "Near Kheda Junction", eta: "12:20 PM", remaining: "1 hr 35 min remaining", updateAge: "15 seconds ago", speed: "52 km/h", routeState: "On corridor", routeNotice: "Vehicle is following the planned road corridor." },
+      { progress: 47, anchorIndex: 1, status: "Approaching stop", location: "Approaching Anand Bypass", eta: "12:16 PM", remaining: "1 hr 12 min remaining", updateAge: "5 seconds ago", speed: "44 km/h", routeState: "Minor deviation", routeNotice: "Temporary 0.8 km simulated deviation near Anand Bypass." },
+      { progress: 66, anchorIndex: 1, status: "At rest stop", location: "Anand Bypass", eta: "12:24 PM", remaining: "1 hr 3 min remaining", updateAge: "Now", speed: "0 km/h", routeState: "Recovered", routeNotice: "Vehicle has rejoined the planned corridor after the simulated detour." },
+      { progress: 82, anchorIndex: 2, status: "On final leg", location: "Near Nadiad", eta: "12:21 PM", remaining: "36 min remaining", updateAge: "9 seconds ago", speed: "55 km/h", routeState: "On corridor", routeNotice: "Vehicle is following the planned road corridor." },
     ],
   },
   {
     id: "GJ-D887", label: "Gujarat Demo Electric · GJ-D887", route: "Ahmedabad → Vadodara", vehicle: "Electric AC Coach", schedule: "17:45 – 23:25", stops: [{ name: "Ahmedabad", note: "Sample departure · 05:45 PM" }, { name: "Nadiad Circle", note: "Sample comfort stop" }, { name: "Vadodara", note: "Sample arrival · 11:25 PM" }], snapshots: [
-      { progress: 18, anchorIndex: 0, status: "Departing", location: "Leaving Ahmedabad ISBT", eta: "11:25 PM", remaining: "4 hr 44 min remaining", updateAge: "11 seconds ago", speed: "31 km/h" },
-      { progress: 42, anchorIndex: 1, status: "On route", location: "Near Kheda Junction", eta: "11:19 PM", remaining: "3 hr 57 min remaining", updateAge: "Now", speed: "50 km/h" },
-      { progress: 70, anchorIndex: 1, status: "Charging stop", location: "Nadiad Circle", eta: "11:29 PM", remaining: "3 hr 15 min remaining", updateAge: "6 seconds ago", speed: "0 km/h" },
-      { progress: 88, anchorIndex: 2, status: "On final leg", location: "Near Vadodara outskirts", eta: "11:25 PM", remaining: "42 min remaining", updateAge: "14 seconds ago", speed: "56 km/h" },
+      { progress: 18, anchorIndex: 0, status: "Departing", location: "Leaving Ahmedabad ISBT", eta: "11:25 PM", remaining: "4 hr 44 min remaining", updateAge: "11 seconds ago", speed: "31 km/h", routeState: "On corridor", routeNotice: "Vehicle is following the planned road corridor." },
+      { progress: 42, anchorIndex: 1, status: "On route", location: "Near Kheda Junction", eta: "11:19 PM", remaining: "3 hr 57 min remaining", updateAge: "Now", speed: "50 km/h", routeState: "On corridor", routeNotice: "Vehicle is following the planned road corridor." },
+      { progress: 70, anchorIndex: 1, status: "Charging stop", location: "Nadiad Circle", eta: "11:29 PM", remaining: "3 hr 15 min remaining", updateAge: "6 seconds ago", speed: "0 km/h", routeState: "Minor deviation", routeNotice: "Charging-bay entry adds a 0.6 km simulated route deviation." },
+      { progress: 88, anchorIndex: 2, status: "On final leg", location: "Near Vadodara outskirts", eta: "11:25 PM", remaining: "42 min remaining", updateAge: "14 seconds ago", speed: "56 km/h", routeState: "Recovered", routeNotice: "Vehicle has rejoined the planned corridor after the simulated detour." },
     ],
   },
 ];
@@ -51,7 +51,9 @@ export default function Tracking() {
   const busMarkerRef = useRef<google.maps.Marker | null>(null);
   const stopMarkersRef = useRef<google.maps.Marker[]>([]);
   const routePathRef = useRef<google.maps.LatLng[]>([]);
-  const progressRef = useRef(0);
+  const progressRef = useRef(mockServices[0].snapshots[0].progress);
+  const animationFrameRef = useRef<number | null>(null);
+  const [animatedProgress, setAnimatedProgress] = useState(mockServices[0].snapshots[0].progress);
 
   const activeService = useMemo(() => mockServices.find((service) => service.id === serviceId) ?? mockServices[0], [serviceId]);
   const snapshot = activeService.snapshots[snapshotIndex];
@@ -60,20 +62,31 @@ export default function Tracking() {
     const path = routePathRef.current;
     const map = mapRef.current;
     if (!map || path.length === 0 || !window.google) return;
-    const pathIndex = Math.min(path.length - 1, Math.max(0, Math.round((progress / 100) * (path.length - 1))));
-    const position = path[pathIndex];
+    const rawIndex = Math.min(path.length - 1, Math.max(0, (progress / 100) * (path.length - 1)));
+    const leftIndex = Math.floor(rawIndex);
+    const rightIndex = Math.min(path.length - 1, leftIndex + 1);
+    const fraction = rawIndex - leftIndex;
+    const start = path[leftIndex];
+    const end = path[rightIndex];
+    const position = new window.google.maps.LatLng(
+      start.lat() + (end.lat() - start.lat()) * fraction,
+      start.lng() + (end.lng() - start.lng()) * fraction,
+    );
+    const bearing = Math.atan2(end.lng() - start.lng(), end.lat() - start.lat()) * (180 / Math.PI);
+    const icon = { path: window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW, scale: 8, fillColor: "#b82117", fillOpacity: 1, strokeColor: "#ffffff", strokeWeight: 1.5, rotation: bearing };
     if (!busMarkerRef.current) {
       busMarkerRef.current = new window.google.maps.Marker({
         map,
         position,
-        title: "GSRTC Journey Demo vehicle — simulated position",
+        title: "GSRTC Journey Demo vehicle - simulated road position",
         zIndex: 10,
         label: { text: "GJ", color: "#ffffff", fontSize: "10px", fontWeight: "800" },
-        icon: { path: window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW, scale: 8, fillColor: "#b82117", fillOpacity: 1, strokeColor: "#ffffff", strokeWeight: 1.5 },
+        icon,
       });
       return;
     }
     busMarkerRef.current.setPosition(position);
+    busMarkerRef.current.setIcon(icon);
   }, []);
 
   const drawRoute = useCallback((service: TrackingService) => {
@@ -135,22 +148,45 @@ export default function Tracking() {
 
   useEffect(() => {
     setSnapshotIndex(0);
+    const firstProgress = activeService.snapshots[0]?.progress ?? 0;
+    progressRef.current = firstProgress;
+    setAnimatedProgress(firstProgress);
   }, [activeService.id]);
 
   useEffect(() => {
     if (!isPlaying) return;
-    const timer = window.setInterval(advanceMock, 4200);
+    const timer = window.setInterval(advanceMock, 6200);
     return () => window.clearInterval(timer);
   }, [isPlaying, activeService.id]);
 
   useEffect(() => {
-    if (isMapReady) drawRoute(activeService);
-  }, [activeService, drawRoute, isMapReady]);
+    const start = progressRef.current;
+    const end = snapshot.progress;
+    const distance = Math.abs(end - start);
+    const duration = Math.max(1800, Math.min(5600, 1800 + distance * 95));
+    const startedAt = window.performance.now();
+
+    if (animationFrameRef.current) window.cancelAnimationFrame(animationFrameRef.current);
+
+    const animate = (now: number) => {
+      const linear = Math.min(1, (now - startedAt) / duration);
+      const eased = linear < 0.5 ? 2 * linear * linear : 1 - Math.pow(-2 * linear + 2, 2) / 2;
+      const nextProgress = start + (end - start) * eased;
+      progressRef.current = nextProgress;
+      setAnimatedProgress(nextProgress);
+      positionBus(nextProgress);
+      if (linear < 1) animationFrameRef.current = window.requestAnimationFrame(animate);
+    };
+
+    animationFrameRef.current = window.requestAnimationFrame(animate);
+    return () => {
+      if (animationFrameRef.current) window.cancelAnimationFrame(animationFrameRef.current);
+    };
+  }, [positionBus, snapshot.progress]);
 
   useEffect(() => {
-    progressRef.current = snapshot.progress;
-    positionBus(snapshot.progress);
-  }, [positionBus, snapshot.progress]);
+    if (isMapReady) drawRoute(activeService);
+  }, [activeService, drawRoute, isMapReady]);
 
   const refreshMock = () => {
     advanceMock();
@@ -173,17 +209,18 @@ export default function Tracking() {
       <section className="v2-journey-hero">
         <div className="v2-hero-top"><span><Radio />GSRTC-inspired simulation service</span><span>Data source: independent demo only</span></div>
         <div className="v2-hero-main"><div><p>Sample intercity route</p><h2>Ahmedabad <ArrowRight /> Vadodara</h2><small>{activeService.label} · {activeService.vehicle}</small></div><div className="v2-state-chip"><span>Sample service state</span><strong>{snapshot.status}</strong><small>Simulation frame · {snapshot.updateAge}</small></div></div>
-        <div className="v2-hero-controls"><label><span>Tracked service</span><select value={serviceId} onChange={(event) => setServiceId(event.target.value)}>{mockServices.map((service) => <option key={service.id} value={service.id}>{service.label}</option>)}</select></label><div className="v2-control-buttons"><button onClick={() => setIsPlaying((current) => !current)} aria-pressed={isPlaying}>{isPlaying ? <Pause /> : <Play />}{isPlaying ? "Pause" : "Resume"}</button><button onClick={refreshMock}><RefreshCw />Update</button><button onClick={locateDemoBus}><LocateFixed />Locate</button></div><div className="v2-feed-summary"><span>Simulated feed</span><b>{snapshotIndex + 1} / {activeService.snapshots.length}</b><small>Every 4.2 sec</small></div></div>
+        <div className="v2-hero-controls"><label><span>Tracked service</span><select value={serviceId} onChange={(event) => setServiceId(event.target.value)}>{mockServices.map((service) => <option key={service.id} value={service.id}>{service.label}</option>)}</select></label><div className="v2-control-buttons"><button onClick={() => setIsPlaying((current) => !current)} aria-pressed={isPlaying}>{isPlaying ? <Pause /> : <Play />}{isPlaying ? "Pause" : "Resume"}</button><button onClick={refreshMock}><RefreshCw />Update</button><button onClick={locateDemoBus}><LocateFixed />Locate</button></div><div className="v2-feed-summary"><span>Simulated feed</span><b>{snapshotIndex + 1} / {activeService.snapshots.length}</b><small>Road update every 6.2 sec</small></div></div>
       </section>
 
       <div className="v2-workspace">
         <section className="v2-route-card">
           <div className="v2-card-head"><div><span><Navigation />Road navigation view</span><h2>{snapshot.location}</h2></div><div><strong>{snapshot.speed}</strong><small>Simulated speed</small></div></div>
           <div className="tracking-map-wrap">
+            {snapshot.routeState !== "On corridor" && <div className={`tracking-route-alert ${snapshot.routeState === "Minor deviation" ? "is-warning" : "is-recovered"}`}><Signal /><span><b>{snapshot.routeState}</b><small>{snapshot.routeNotice}</small></span></div>}
             <MapView className="tracking-google-map" initialCenter={{ lat: 22.67, lng: 72.9 }} initialZoom={9} onMapReady={handleMapReady} onMapError={() => setIsMapUnavailable(true)} />
-            {isMapUnavailable && <FallbackNavigationMap progress={snapshot.progress} location={snapshot.location} />}
-            <div className="tracking-map-badge"><Radio /><span><b>Demo navigation</b><small>Road route + simulated bus</small></span></div>
-            <div className="tracking-map-progress"><span><b>Route completion</b><small>{snapshot.progress}% travelled</small></span><i><em style={{ width: `${snapshot.progress}%` }} /></i></div>
+            {isMapUnavailable && <FallbackNavigationMap progress={animatedProgress} location={snapshot.location} />}
+            <div className="tracking-map-badge"><Radio /><span><b>{isPlaying ? "Moving on simulated road" : "Simulation paused"}</b><small>Road-following vehicle position</small></span></div>
+            <div className="tracking-map-progress"><span><b>Route completion</b><small>{animatedProgress.toFixed(1)}% travelled</small></span><i><em style={{ width: `${animatedProgress}%` }} /></i></div>
           </div>
         </section>
         <aside className="v2-live-panel" aria-live="polite"><div className="v2-arrival"><div className="v2-arrival-seal"><img src={routePulseLogo} alt="" /><span>GSRTC Journey<br />demo seal</span></div><span>Estimated arrival</span><strong>{snapshot.eta}</strong><small>{snapshot.remaining}</small></div><div className="v2-route-summary"><div><BusFront /><span><b>Vehicle</b><small>{activeService.vehicle}</small></span></div><div><Clock3 /><span><b>Schedule</b><small>{activeService.schedule}</small></span></div></div><div className="v2-next-stop"><span>Next service point</span><b>{snapshot.anchorIndex === 2 ? "Vadodara · Arrival point" : activeService.stops[snapshot.anchorIndex + 1]?.name ?? "Vadodara"}</b><small>{snapshot.anchorIndex === 2 ? "Destination terminal" : "Route timing is simulated"}</small></div><button onClick={() => toast.info("Live driver contact requires a connected fleet provider.")}><UserRound />Contact service desk <ArrowRight /></button></aside>

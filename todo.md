@@ -195,3 +195,11 @@
 - [x] Include booking, route, service, passenger, fare, contact, and instruction sections using live demo data.
 - [x] Preserve original independent branding and a prominent non-travel disclaimer.
 - [x] Validate the downloaded PDF and save a checkpoint.
+
+# Realistic Journey Monitor Enhancement
+
+- [x] Define realistic simulated vehicle states, road-following movement, and an explicit live-feed boundary.
+- [x] Add variable speed, stop dwell, smooth progress, and ETA update behavior.
+- [x] Improve map overlays for vehicle status, route deviation, and next-stop context.
+- [x] Verify realistic tracking behavior on desktop and mobile, then save a checkpoint.
+- [x] Add and validate an explicit simulated route-deviation/recovery state in the Journey Monitor overlay.

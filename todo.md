@@ -203,3 +203,9 @@
 - [x] Improve map overlays for vehicle status, route deviation, and next-stop context.
 - [x] Verify realistic tracking behavior on desktop and mobile, then save a checkpoint.
 - [x] Add and validate an explicit simulated route-deviation/recovery state in the Journey Monitor overlay.
+
+# Public GitHub Export
+
+- [x] Audit the project for secrets, environment files, generated artifacts, and private local data before public export.
+- [ ] Create the public `kalariya-ved/gsrtc-journey-demo` repository and push the sanitized project.
+- [ ] Verify the public repository contents and record its URL.
